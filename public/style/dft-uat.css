@@ -1,0 +1,325 @@
+:root {
+  --color-primary: rgb(0, 156, 69);
+  --color-primary-light: rgb(101, 189, 140);
+  --color-grey:#495057;
+  --color-grey-light-1:#f7f7f7;
+  --color-grey-light-2: #eee;
+  --color-grey-dark-1:#777;
+  --color-grey-dark-2:#999;
+  --color-grey-dark-3:#333;
+  --color-invalid:rgb(255, 64, 129);
+  --color-bg:#e9eaef;
+}
+
+*,
+*::after,
+*::before {
+  margin: 0;
+  padding: 0;
+  -webkit-box-sizing: inherit;
+          box-sizing: inherit;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  font-size: 1.4rem;
+}
+
+.title {
+  text-align: center;
+  font-weight: 500;
+  font-size: 2rem;
+  text-transform: uppercase;
+  margin-bottom: 4rem;
+}
+
+.info {
+  width: 100%;
+}
+
+.info__divide {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  border: 1px solid black;
+}
+
+.info__left {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.info__right {
+  width: 50%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border-left: 1px solid black;
+}
+
+.info--name {
+  width: 40%;
+  border-right: 1px solid black;
+  padding: 5px 0;
+  padding-left: 5px;
+  font-weight: 500;
+}
+
+.info--val {
+  width: 60%;
+  padding: 5px 0;
+  padding-left: 5px;
+}
+
+.info__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  border: 1px solid black;
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+
+.info__name {
+  width: 20%;
+  border-right: 1px solid black;
+  padding: 5px 0;
+  padding-left: 5px;
+  font-weight: 500;
+}
+
+.info__val {
+  width: 80%;
+  padding: 5px 0;
+  padding-left: 5px;
+}
+
+.skenario {
+  margin-top: 3rem;
+}
+
+.skenario__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 2.5rem;
+  border: 1px solid black;
+}
+
+.skenario--head {
+  font-weight: 500;
+  text-align: center;
+}
+
+.skenario__no {
+  width: 8%;
+  border-right: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.skenario__skenario {
+  width: 32%;
+  border-right: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+}
+
+.skenario__user1 {
+  width: 15%;
+  border-right: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+  text-align: center;
+}
+
+.skenario__user2 {
+  width: 15%;
+  border-right: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+  text-align: center;
+}
+
+.skenario__ket {
+  width: 30%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+}
+
+.kendala {
+  margin-top: 3rem;
+}
+
+.kendala__row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  min-height: 2.5rem;
+  border: 1px solid black;
+}
+
+.kendala--head {
+  font-weight: 500;
+  text-align: center;
+}
+
+.kendala__no {
+  width: 8%;
+  border-right: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.kendala__kendala {
+  width: 42%;
+  border-right: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+}
+
+.kendala__check {
+  width: 15%;
+  border-right: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+  text-align: center;
+}
+
+.kendala__ket {
+  width: 35%;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 5px;
+}
+
+.approval {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  margin-top: 3rem;
+}
+
+.approval__box {
+  width: 16.67%;
+  border-right: 1px solid black;
+  border-top: 1px solid black;
+  border-bottom: 1px solid black;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.approval__head {
+  text-align: center;
+  font-weight: 500;
+  padding: 5px;
+  height: 5rem;
+  border-bottom: 1px solid black;
+}
+
+.approval__ttd {
+  height: 11rem;
+}
+
+.approval__name {
+  text-align: center;
+  font-weight: 500;
+  padding: 5px;
+  min-height: 2.5rem;
+  border-top: 1px solid black;
+}
+
+.mt-1 {
+  margin-top: 1rem;
+}
+
+.border-left {
+  border-left: 1px solid black;
+}
+/*# sourceMappingURL=dft-uat.css.map */

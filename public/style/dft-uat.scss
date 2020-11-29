@@ -1,0 +1,243 @@
+:root{
+    --color-primary: rgb(0, 156, 69);
+    --color-primary-light: rgb(101, 189, 140);
+    --color-grey:#495057;
+    --color-grey-light-1:#f7f7f7;
+    --color-grey-light-2 : #eee;
+    --color-grey-dark-1:#777;
+    --color-grey-dark-2:#999;
+    --color-grey-dark-3:#333;
+    --color-invalid:rgb(255, 64, 129);
+    --color-bg :#e9eaef;
+  
+}
+
+*,
+*::after,
+*::before{
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html{
+  font-size: 62.5%;
+}
+
+body {
+    margin: 0;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+    box-sizing: border-box;
+    font-size: 1.4rem;
+}
+
+.title{
+    text-align: center;
+    font-weight: 500;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin-bottom: 4rem;
+}
+
+.info{
+    width: 100%;
+    &__divide{
+        display: flex;
+        justify-content: space-between;
+        border: 1px solid black;
+    }
+
+    &__left{
+        width: 50%;
+        display: flex;
+    }
+    &__right{
+        width: 50%;
+        display: flex;
+        border-left: 1px solid black;
+    }
+
+    &--name{
+        width: 40%;
+        border-right: 1px solid black;
+        padding: 5px 0;
+        padding-left: 5px;
+        font-weight: 500;
+    }
+
+    &--val{
+        width: 60%;
+        padding: 5px 0;
+        padding-left: 5px;
+    }
+
+    &__item{
+        display: flex;
+        border: 1px solid black;
+        border-left: 1px solid black;
+        border-right: 1px solid black;
+    }
+
+    &__name{
+        width: 20%;
+        border-right: 1px solid black;
+        padding: 5px 0;
+        padding-left: 5px;
+        font-weight: 500;
+    }
+
+    &__val{
+        width: 80%;
+        padding: 5px 0;
+        padding-left: 5px;
+    }
+}
+
+.skenario{
+    margin-top: 3rem;
+    &__row{
+        display: flex;
+        min-height: 2.5rem;
+        border: 1px solid black;
+    }
+
+    &--head{
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &__no{
+        width: 8%;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__skenario{
+        width: 32%;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:  5px;
+    }
+
+    &__user1{
+        width: 15%;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        text-align: center;
+    }   
+
+    &__user2{
+        width: 15%;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        text-align: center;
+    }
+
+    &__ket{
+        width: 30%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    }
+}
+
+
+.kendala{
+    margin-top: 3rem;
+    &__row{
+        display: flex;
+        min-height: 2.5rem;
+        border: 1px solid black;
+    }
+
+    &--head{
+        font-weight: 500;
+        text-align: center;
+    }
+
+    &__no{
+        width: 8%;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__kendala{
+        width: 42%;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding:  5px;
+    }
+
+    &__check{
+        width: 15%;
+        border-right: 1px solid black;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+        text-align: center;
+    }   
+
+    &__ket{
+        width: 35%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 5px;
+    }
+}
+
+.approval{
+    display: flex;
+    margin-top: 3rem;
+    &__box{
+        width: 16.67%;
+        border-right: 1px solid black;
+        border-top: 1px solid black;
+        border-bottom: 1px solid black;
+        display: flex;
+        flex-direction: column;
+    }
+    &__head{
+        text-align: center;
+        font-weight: 500;
+        padding: 5px;
+        height: 5rem;
+        border-bottom: 1px solid black;
+    }
+
+    &__ttd{
+        height: 11rem;
+    }
+
+    &__name{
+        text-align: center;
+        font-weight: 500;
+        padding: 5px;
+        min-height: 2.5rem;
+        border-top: 1px solid black;
+    }
+}
+
+.mt-1{
+    margin-top: 1rem;
+}
+
+.border-left{
+    border-left: 1px solid black;
+}

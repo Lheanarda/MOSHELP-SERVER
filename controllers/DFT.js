@@ -1,0 +1,104 @@
+const Datasource = require('../datasources/Datasource');
+const pdf = require('html-pdf');
+const path = require('path');
+const DFTTemplate = require('../documents-templates/DFT-UAT');
+
+exports.createDFT = async(req,res,next)=>{
+    const input = req.body.data;
+    input.tipe_dokumen = 'DFT';
+    const addDokumenResult = await Datasource().NomorDokumenDatasource.addDokumen(input);
+    if(addDokumenResult.success){
+        input.kode = addDokumenResult.data.kode;
+        input.sequence = addDokumenResult.data.sequence;
+
+        const addDFTResult = await Datasource().DFTDatasource.addDFT(input);
+
+        if(addDFTResult.success){
+            //create skenarios html
+            let skenarios='';
+            input.skenarios.forEach((skenario,idx)=>{
+                skenarios+= `
+                <div class="skenario__row">
+                    <div class="skenario__no">${idx+1}</div>
+                    <div class="skenario__skenario">${skenario.skenario ? skenario.skenario :'-'}</div>
+                    <div class="skenario__user1">
+                        ${skenario.checklist1?'<i class="fa fa-check" aria-hidden="true"></i>':'X'}
+                    </div>
+                    <div class="skenario__user2">
+                        ${skenario.checklist2?'<i class="fa fa-check" aria-hidden="true"></i>':'X'}
+                    </div>
+                    <div class="skenario__ket">${skenario.keterangan?skenario.keterangan:'-'}</div>
+                </div>
+                `
+            });
+
+            //create kendala HTML
+            let kendalas = '';
+            input.kendalas.forEach((kendala,idx)=>{
+                kendalas+=`
+                <div class="kendala__row">
+                    <div class="kendala__no">${idx+1}</div>
+                    <div class="kendala__kendala">${kendala.kendala ? kendala.kendala : '-'}</div>
+                    <div class="kendala__check">${kendala.checklist?'<i class="fa fa-check" aria-hidden="true"></i>':'-'}</div>
+                    <div class="kendala__ket">${kendala.keterangan ? kendala.keterangan : '-'}</div>
+                </div>
+                `
+            });
+            //create DFT
+            pdf.create(DFTTemplate(input,'DFT',skenarios,kendalas),{
+                format:'A4',
+                orientation:'portrait',
+                border:{
+                    top:'2.54cm',
+                    left:'2.54cm',
+                    right:'2.54cm',
+                    bottom:'2.54cm'
+                }
+            }).toFile(`private-document-storage/${input.kode}.pdf`,err=>{
+                if(err){
+                    res.status(500).json({
+                        success:false,
+                        message : err
+                    })
+                }
+                const filePath = path.join(__dirname,`../private-document-storage/${input.kode}.pdf`);
+                res.sendFile(filePath,{
+                    headers: {
+                        'x-timestamp': Date.now(),
+                        'x-sent': true
+                    }
+                },err=>{
+                    if(err){
+                        res.status(500).json({
+                            success:false,
+                            message : err
+                        })
+                    }
+                })
+            })
+        }
+    }else{
+        res.status(500).json({
+            success:false,
+            message:addDokumenResult.message
+        })
+    }
+}
+
+exports.getDetailDFT = async(req,res,next)=>{
+    const input = {};
+    input.kode_dokumen = req.params.kode_dokumen;
+    
+    const result = await Datasource().DFTDatasource.getDetailPDF(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        })
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
