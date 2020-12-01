@@ -38,6 +38,42 @@ exports.getDocumentNotApproved = async(req,res,next)=>{
     }
 }
 
+exports.getSearchNotApprovedDocument = async(req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    input.term = req.params.term;
+    const result = await Datasource().DocumentDatasource.getSearchNotApprovedDocument(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
+exports.getSearchApprovedDocument = async(req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    input.term = req.params.term;
+    const result = await Datasource().DocumentDatasource.getSearchApprovedDocument(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
 exports.getDownloadPDF = async(req,res,next)=>{
     const fileName = `${req.params.kode_dokumen}.pdf`;
     const filePath = path.join(__dirname,`../private-document-storage/${fileName}`);
@@ -54,4 +90,57 @@ exports.getDownloadPDF = async(req,res,next)=>{
             })
         }
     })
+}
+
+exports.getApprovedDRF = async (req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    const result = await Datasource().DocumentDatasource.getApprovedDRF(input);
+
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
+exports.getDocumentsCreatedBy = async(req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    const result = await Datasource().DocumentDatasource.getDocumentsCreatedBy(input);
+
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
+exports.getDocumentsSignedBy = async(req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    const result = await Datasource().DocumentDatasource.getDocumentsSignedBy(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
 }

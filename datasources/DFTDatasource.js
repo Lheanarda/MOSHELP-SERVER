@@ -39,7 +39,13 @@ class DFTDatasource{
             '${input.approved_by_job}',
             '${input.approved_name}',
             '${input.approved_job}',
-            '${input.tipe_dokumen}'
+            '${input.tipe_dokumen}',
+            null,
+            null,
+            null,
+            null,
+            null,
+            null
         )`;
 
         //skenario sql

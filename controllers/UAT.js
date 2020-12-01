@@ -28,6 +28,8 @@ exports.createUAT = async(req,res,next)=>{
                         ${skenario.checklist2?'<i class="fa fa-check" aria-hidden="true"></i>':'X'}
                     </div>
                     <div class="skenario__ket">${skenario.keterangan?skenario.keterangan:'-'}</div>
+
+                    <div class="skenario__referensi">${skenario.referensi?skenario.referensi:'-'} </div>
                 </div>
                 `
             });
@@ -41,6 +43,7 @@ exports.createUAT = async(req,res,next)=>{
                     <div class="kendala__kendala">${kendala.kendala ? kendala.kendala : '-'}</div>
                     <div class="kendala__check">${kendala.checklist?'<i class="fa fa-check" aria-hidden="true"></i>':'-'}</div>
                     <div class="kendala__ket">${kendala.keterangan ? kendala.keterangan : '-'}</div>
+                    <div class="kendala__referensi">${kendala.referensi ? kendala.referensi : '-'}</div>
                 </div>
                 `
             });

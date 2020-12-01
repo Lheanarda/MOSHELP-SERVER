@@ -29,7 +29,7 @@ module.exports=(data)=>{
                     <div class="header__divide ">
                         <div class ="table-group">
                             <div class="table-group__name">Request ID</div>
-                            <div class="table-group__value">${data.kode}</div>
+                            <div class="table-group__value">${data.kode ? data.kode : data.kode_dokumen}</div>
                         </div>
                         <div class ="table-group">
                             <div class="table-group__name">Reference ID</div>
@@ -85,64 +85,7 @@ module.exports=(data)=>{
         <div class="projects">
             <div class="projects--left">Projects</div>
             <div class="projects--right">
-                <div class="projects--top">
-                    <div class="projects__checkbox">${
-                        data.projects==='EMS'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">EMOS</div> 
-                    
-                    <div class="projects__checkbox">${
-                        data.projects==='MHT'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">MOSHealth</div>
-
-                    <div class="projects__checkbox">${
-                        data.projects==='MST'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">MOSTrans</div>
-
-                    <div class="projects__checkbox">${
-                        data.projects==='MPY'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">MOSPay</div>
-
-                    <div class="projects__checkbox">${
-                        data.projects==='MPR'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">MOSPro</div>
-
-                    <div class="projects__checkbox">${
-                        data.projects==='GLB'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">GLOB</div>
-
-                    
-                </div>
-                <div class="projects--bottom">
-                     
-                    <div class="projects__checkbox"${
-                        data.projects==='MPS'?'X':''
-                    }></div>  
-                    <div class="projects__checkbox-val">MOSPos</div>
-
-                    <div class="projects__checkbox">${
-                        data.projects==='MHB'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">MOSHub</div>
-
-                    <div class="projects__checkbox">${
-                        data.projects==='MCC'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">MOSConnect</div>
-
-                    <div class="projects__checkbox">${
-                        data.projects==='MLY'?'X':''
-                    }</div>  
-                    <div class="projects__checkbox-val">MOSLy</div>
-
-                    <div class="projects__checkbox"></div>  
-                    <div class="projects__checkbox-val">Others : ....</div>
-                </div>
+                ${data.project_name?data.project_name:'-'}
             </div>
         </div>
 
@@ -238,9 +181,9 @@ module.exports=(data)=>{
                 <div class="approval__name">Requested By</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Date :</div>
-                    <div class="approval__item-val">-</div>
+                    <div class="approval__item-val">${data.request_by_date?dateFormat(data.request_by_date,"mmm dS, yyyy"):'-'}</div>
                 </div>
-                <div class="approval__ttd"></div>
+                <div class="approval__ttd">${data.request_by_date?'<span>SIGNED</span>':'-'}</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Name :</div>
                     <div class="approval__item-val">${data.request_by_name?data.request_by_name:'-'}</div>
@@ -254,9 +197,9 @@ module.exports=(data)=>{
                 <div class="approval__name">Request Approved By</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Date :</div>
-                    <div class="approval__item-val">-</div>
+                    <div class="approval__item-val">${data.request_approved_date?dateFormat(data.request_approved_date,"mmm dS, yyyy"):'-'}</div>
                 </div>
-                <div class="approval__ttd"></div>
+                <div class="approval__ttd">${data.request_approved_date?'<span>SIGNED</span>':'-'}</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Name :</div>
                     <div class="approval__item-val">${data.request_approved_name?data.request_approved_name:'-'}</div>
@@ -270,9 +213,9 @@ module.exports=(data)=>{
                 <div class="approval__name">Developed By</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Date :</div>
-                    <div class="approval__item-val">-</div>
+                    <div class="approval__item-val">${data.developed_by_date?dateFormat(data.developed_by_date,"mmm dS, yyyy"):'-'}</div>
                 </div>
-                <div class="approval__ttd"></div>
+                <div class="approval__ttd">${data.developed_by_date?'<span>SIGNED</span>':'-'}</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Name :</div>
                     <div class="approval__item-val">${data.developed_by_name?data.developed_by_name:'-'}</div>
@@ -286,9 +229,9 @@ module.exports=(data)=>{
                 <div class="approval__name">Development Approved By</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Date :</div>
-                    <div class="approval__item-val">-</div>
+                    <div class="approval__item-val">${data.development_approved_date?dateFormat(data.development_approved_date,"mmm dS, yyyy"):'-'}</div>
                 </div>
-                <div class="approval__ttd"></div>
+                <div class="approval__ttd">${data.development_approved_date? '<span>SIGNED</span>' :''}</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Name :</div>
                     <div class="approval__item-val">${data.development_approved_name?data.development_approved_name:'-'}</div>
@@ -302,10 +245,10 @@ module.exports=(data)=>{
                 <div class="approval__name">Actual Finish Date</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Date :</div>
-                    <div class="approval__item-val">-</div>
+                    <div class="approval__item-val">${data.approved_date?dateFormat(data.approved_date,"mmm dS, yyyy"):'-'}</div>
                 </div>
                 <div class="approval__name mt-1 border-top">Approved By</div>
-                <div class="approval__ttd-small"></div>
+                <div class="approval__ttd-small">${data.approved_date?'<span>SIGNED</span>' :''}</div>
                 <div class="approval__item">
                     <div class="approval__item-name">Name :</div>
                     <div class="approval__item-val">${data.approved_name?data.approved_name:'-'}</div>

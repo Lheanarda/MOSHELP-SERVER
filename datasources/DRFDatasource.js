@@ -63,7 +63,7 @@ class DRFDatasource{
            ${advancedDate},
            '${input.advanced_pic}',
            '${input.advanced_notes}',
-           '${input.request_date}',
+           null,
            '${input.request_by_name}',
            '${input.request_by_job}',
            null,
@@ -118,6 +118,7 @@ class DRFDatasource{
             }
         }
     }
+
 }
 
 module.exports = DRFDatasource;
