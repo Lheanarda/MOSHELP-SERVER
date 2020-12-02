@@ -4,8 +4,9 @@ class AksesDatasource{
     }
 
     async getAllAkses(){
-        const sql = `select a.*, u.nama from akses a, users u
-        where a.employee_id = u.employee_id ;`;
+        const sql = `select a.*, u.nama, p.nama_project from akses a, users u, project p
+        where a.employee_id = u.employee_id and a.kode_project = p.kode_project  
+        ORDER BY update_date DESC;`;
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
             return {

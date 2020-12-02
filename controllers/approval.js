@@ -22,6 +22,7 @@ exports.getNeedToBeSigned = async(req,res,next)=>{
 }
 
 exports.onSignedDRF = async(req,res,next)=>{
+    const approveOnly = req.body.approveOnly;
     const input = req.body.data;
     const dokumen = req.body.dokumen;
     const result = await Datasource().ApprovalDatasource.onSignedDRF(input);
@@ -39,12 +40,16 @@ exports.onSignedDRF = async(req,res,next)=>{
             }
         }).toFile(`private-document-storage/${input.kode_dokumen}.pdf`,err=>{
             if(err){
-                res.status(500),json({
-                    success:false,
-                    message:err
-                });
+                return Promise.reject(new Error('Failed To Create Document'))
             }
             const filePath = path.join(__dirname,`../private-document-storage/${input.kode_dokumen}.pdf`);
+            if(approveOnly){
+                console.log('Error Found')
+                res.status(200).json({
+                    success:true,
+                    message:`${input.kode_dokumen} has been signed`
+                })
+            }else{
                 res.sendFile(filePath,{
                     headers: {
                         'x-timestamp': Date.now(),
@@ -58,6 +63,7 @@ exports.onSignedDRF = async(req,res,next)=>{
                         })
                     }
                 })
+            }
         })
     }else{
         res.status(500).json({
@@ -68,6 +74,7 @@ exports.onSignedDRF = async(req,res,next)=>{
 }
 
 exports.onSignedDFT_UAT = async(req,res,next)=>{
+    const approveOnly = req.body.approveOnly;
     const input = req.body.data;
     const dokumen = req.body.dokumen;
     const result = await Datasource().ApprovalDatasource.onSignedDFT_UAT(input);
@@ -120,14 +127,16 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
             }
         }).toFile(`private-document-storage/${input.kode_dokumen}.pdf`,err=>{
             if(err){
-                console.log(err);
-                res.status(500).json({
-                    success:false,
-                    message : err
-                })
+                return Promise.reject(new Error('Failed To Create Document'))
                 
             }
             const filePath = path.join(__dirname,`../private-document-storage/${input.kode_dokumen}.pdf`);
+            if(approveOnly){
+                res.status(200).json({
+                    success:true,
+                    message:`${input.kode_dokumen} has been signed`
+                })
+            }else{
                 res.sendFile(filePath,{
                     headers: {
                         'x-timestamp': Date.now(),
@@ -141,6 +150,7 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
                         })
                     }
                 })
+            }
         })
     }else{
         res.status(500).json({

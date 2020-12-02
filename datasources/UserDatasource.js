@@ -4,7 +4,7 @@ class UserDatasource{
     }
 
     async getAllUsers(){
-        const sql = "SELECT*FROM users ORDER BY create_date";
+        const sql = "SELECT*FROM users ORDER BY create_date DESC";
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
             return {
@@ -100,6 +100,22 @@ class UserDatasource{
             await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
             return{
                 success:true
+            }
+        }catch(e){
+            return{
+                success:false,
+                message:e
+            }
+        }
+    }
+    
+    async getLoginUserAdmin(input){
+        const sql = `SELECT employee_id FROM admin_users WHERE employee_id = ${input.employee_id}`;
+        try{
+            const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            return{
+                success:true,
+                data:result[0]
             }
         }catch(e){
             return{

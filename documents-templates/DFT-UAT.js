@@ -70,41 +70,96 @@ module.exports=(data,mode,skenarios,kendalas)=>{
             ${kendalas}
         </div>
 
-        <div class = "approval">
-            <div class="approval__box border-left">
-                <div class="approval__head">User Test I</div>
-                <div class="approval__ttd">${data.user1_date ? '<span>SIGNED</span>':''} </div>
-                <div class="approval__name">${data.user1?data.user1:'-'}</div>
+        <div class="approval mt-1">
+            <div class="approval__box">
+                <div class="approval__name">User I</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Date :</div>
+                    <div class="approval__item-val">${data.user1_date?dateFormat(data.user1_date,"mmm dS, yyyy"):'-'}</div>
+                </div>
+                <div class="approval__ttd">${data.user1_date?'<span>SIGNED</span>':'-'}</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Name :</div>
+                    <div class="approval__item-val">${data.user1?data.user1:'-'}</div>
+                </div>
+            </div>
+            <div class="approval__box">
+                <div class="approval__name">User II</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Date :</div>
+                    <div class="approval__item-val">${data.user2_date?dateFormat(data.user2_date,"mmm dS, yyyy"):'-'}</div>
+                </div>
+                <div class="approval__ttd">${data.user2_date?'<span>SIGNED</span>':'-'}</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Name :</div>
+                    <div class="approval__item-val">${data.user2?data.user2:'-'}</div>
+                </div>
+            </div>
+            <div class="approval__box">
+                <div class="approval__name">Checked By</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Date :</div>
+                    <div class="approval__item-val">${data.checked_by_date?dateFormat(data.checked_by_date,"mmm dS, yyyy"):'-'}</div>
+                </div>
+                <div class="approval__ttd">${data.checked_by_date?'<span>SIGNED</span>':'-'}</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Name :</div>
+                    <div class="approval__item-val">${data.checked_by_name?data.checked_by_name:'-'}</div>
+                </div>
+                <div class="approval__item">
+                    <div class="approval__item-name">J.Title :</div>
+                    <div class="approval__item-val">${data.checked_by_job?data.checked_by_job:'-'}</div>
+                </div>
+            </div>
+            <div class="approval__box">
+                <div class="approval__name">Request By</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Date :</div>
+                    <div class="approval__item-val">${data.request_by_date?dateFormat(data.request_by_date,"mmm dS, yyyy"):'-'}</div>
+                </div>
+                <div class="approval__ttd">${data.request_by_date? '<span>SIGNED</span>' :''}</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Name :</div>
+                    <div class="approval__item-val">${data.request_by_name?data.request_by_name:'-'}</div>
+                </div>
+                <div class="approval__item">
+                    <div class="approval__item-name">J.Title :</div>
+                    <div class="approval__item-val">${data.request_by_job?data.request_by_job:'-'}</div>
+                </div>
             </div>
 
             <div class="approval__box">
-                <div class="approval__head">User Test II</div>
-                <div class="approval__ttd">${data.user2_date ? '<span>SIGNED</span>':''}</div>
-                <div class="approval__name">${data.user2?data.user2:'-'}</div>
+                <div class="approval__name">Approved By</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Date :</div>
+                    <div class="approval__item-val">${data.approved_by_date?dateFormat(data.approved_by_date,"mmm dS, yyyy"):'-'}</div>
+                </div>
+                <div class="approval__ttd">${data.approved_by_date? '<span>SIGNED</span>' :''}</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Name :</div>
+                    <div class="approval__item-val">${data.approved_by_name?data.approved_by_name:'-'}</div>
+                </div>
+                <div class="approval__item">
+                    <div class="approval__item-name">J.Title :</div>
+                    <div class="approval__item-val">${data.approved_by_job?data.approved_by_job:'-'}</div>
+                </div>
             </div>
 
-            <div class="approval__box">
-                <div class="approval__head">Checked By ${data.checked_by_job?data.checked_by_job:'-'}</div>
-                <div class="approval__ttd">${data.checked_by_date ? '<span>SIGNED</span>':''}</div>
-                <div class="approval__name">${data.checked_by_name?data.checked_by_name:'-'}</div>
-            </div>
-
-            <div class="approval__box">
-                <div class="approval__head">Request By ${data.request_by_job?data.request_by_job:'-'}</div>
-                <div class="approval__ttd">${data.request_by_date ? '<span>SIGNED</span>':''}</div>
-                <div class="approval__name">${data.request_by_name?data.request_by_name:'-'}</div>
-            </div>
-
-            <div class="approval__box">
-                <div class="approval__head">Approved By ${data.approved_by_job?data.approved_by_job:'-'}</div>
-                <div class="approval__ttd">${data.approved_by_date ? '<span>SIGNED</span>':''}</div>
-                <div class="approval__name">${data.approved_by_name?data.approved_by_name:'-'}</div>
-            </div>
-
-            <div class="approval__box">
-                <div class="approval__head">Approved ${data.approved_job?data.approved_job:'-'}</div>
-                <div class="approval__ttd">${data.approved_date ? '<span>SIGNED</span>':''}</div>
-                <div class="approval__name">${data.approved_name?data.approved_name:'-'}</div>
+            <div class="approval__box border-right">
+                <div class="approval__name">Approved</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Date :</div>
+                    <div class="approval__item-val">${data.approved_date?dateFormat(data.approved_date,"mmm dS, yyyy"):'-'}</div>
+                </div>
+                <div class="approval__ttd">${data.approved_date? '<span>SIGNED</span>' :''}</div>
+                <div class="approval__item">
+                    <div class="approval__item-name">Name :</div>
+                    <div class="approval__item-val">${data.approved_name?data.approved_name:'-'}</div>
+                </div>
+                <div class="approval__item">
+                    <div class="approval__item-name">J.Title :</div>
+                    <div class="approval__item-val">${data.approve_job?data.approve_job:'-'}</div>
+                </div>
             </div>
         </div>
     </body>

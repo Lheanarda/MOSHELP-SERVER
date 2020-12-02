@@ -5,6 +5,7 @@ const UATTemplate = require('../documents-templates/DFT-UAT');
 
 exports.createUAT = async(req,res,next)=>{
     const input = req.body.data;
+    const submitOnly = req.body.submitOnly;
     input.tipe_dokumen = 'UAT';
     const addDokumenResult = await Datasource().NomorDokumenDatasource.addDokumen(input);
     if(addDokumenResult.success){
@@ -59,25 +60,29 @@ exports.createUAT = async(req,res,next)=>{
                 }
             }).toFile(`private-document-storage/${input.kode}.pdf`,err=>{
                 if(err){
-                    res.status(500).json({
-                        success:false,
-                        message : err
-                    })
+                    return Promise.reject(new Error('Failed To Create Document'))
                 }
                 const filePath = path.join(__dirname,`../private-document-storage/${input.kode}.pdf`);
-                res.sendFile(filePath,{
-                    headers: {
-                        'x-timestamp': Date.now(),
-                        'x-sent': true
-                    }
-                },err=>{
-                    if(err){
-                        res.status(500).json({
-                            success:false,
-                            message : err
-                        })
-                    }
-                })
+                if(submitOnly){
+                    res.status(200).json({
+                        success:true,
+                        message:`${input.kode} has been created`
+                    })
+                }else{
+                    res.sendFile(filePath,{
+                        headers: {
+                            'x-timestamp': Date.now(),
+                            'x-sent': true
+                        }
+                    },err=>{
+                        if(err){
+                            res.status(500).json({
+                                success:false,
+                                message : err
+                            })
+                        }
+                    })
+                }
             })
         }
     }else{

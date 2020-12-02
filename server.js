@@ -18,6 +18,7 @@ const DFT = require('./routes/DFTRoute');
 const UAT = require('./routes/UATRoute');
 const document = require('./routes/documentRoute');
 const approval = require('./routes/approvalRoute');
+const auth = require('./routes/authRoute');
 
 dotenv.config({path:'./config/config.env'});
 
@@ -42,5 +43,6 @@ app.use('/api/v1/DFT',DFT);
 app.use('/api/v1/UAT',UAT);
 app.use('/api/v1/document',document);
 app.use('/api/v1/approval',approval);
+app.use('/api/v1/auth',auth);
 
 app.listen(process.env.PORT,console.log(`Server running on ${process.env.ENDPOINT}`));

@@ -93,7 +93,24 @@ exports.deleteUsers = async(req,res,next)=>{
     }else{
         res.status(500).json({
             success:false,
-            messgae:result.message
+            message:result.message
+        })
+    }
+}
+
+exports.getLoginUserAdmin = async(req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    const result = await Datasource().UsersDatasource.getLoginUserAdmin(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data: result.data
+        })
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
         })
     }
 }
