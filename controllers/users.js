@@ -88,7 +88,7 @@ exports.deleteUsers = async(req,res,next)=>{
     if(result.success){
         res.status(200).json({
             success:true,
-            message:`jabatan ${input.employee_id} has been deleted`
+            message:`User ${input.employee_id} has been deleted`
         });
     }else{
         res.status(500).json({
@@ -106,6 +106,23 @@ exports.getLoginUserAdmin = async(req,res,next)=>{
         res.status(200).json({
             success:true,
             data: result.data
+        })
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
+exports.getLoginUsers = async(req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    const result = await Datasource().UsersDatasource.getLoginUsers(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
         })
     }else{
         res.status(500).json({

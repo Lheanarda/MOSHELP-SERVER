@@ -50,6 +50,23 @@ exports.getAksesByEmployee = async(req,res,next)=>{
     }
 }
 
+exports.getIfAksesAll = async(req,res,next)=>{
+    const input = {};
+    input.employee_id = req.params.employee_id;
+    const result = await Datasource().AksesDatasource.getIfAksesAll(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
 exports.getAksesByProject = async(req,res,next)=>{
     const input = {};
     input.kode_project = req.params.kode_project;

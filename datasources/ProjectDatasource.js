@@ -23,6 +23,7 @@ class ProjectDatasource{
         const sql = `select p.kode_project,p.nama_project
         from project p, akses a
         where p.kode_project  = a.kode_project and a.employee_id = ${input.employee_id}`;
+
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
             return {

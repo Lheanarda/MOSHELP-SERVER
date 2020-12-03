@@ -37,6 +37,25 @@ class AksesDatasource{
         }
     }
 
+    async getIfAksesAll(input){
+        const sql = `select employee_id 
+        from akses a 
+        where employee_id = ${input.employee_id} and kode_project = 'ALL';`;
+
+        try{
+            const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            return{
+                success:true,
+                data:result[0]
+            }
+        }catch(e){
+            return{
+                success:false,
+                message:e
+            }
+        }
+    }
+
     async getAksesByEmployee (input){
         const sql = `SELECT*FROM akses WHERE employee_id = '${input.employee_id}'`;
         try{

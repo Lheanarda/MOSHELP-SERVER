@@ -1,5 +1,5 @@
 const express = require('express');
-const { getAkses, addAkses, getSingleAkses, updateAkses, deleteAkses, getAksesByProject, getAksesByEmployee } = require('../controllers/akses');
+const { getAkses, addAkses, getSingleAkses, updateAkses, deleteAkses, getAksesByProject, getAksesByEmployee, getIfAksesAll } = require('../controllers/akses');
 const router = express.Router();
 
 router
@@ -20,5 +20,9 @@ router
 router
     .route('/employee/:employee_id')
     .get(getAksesByEmployee);
+
+router
+    .route('/ALL/:employee_id')
+    .get(getIfAksesAll)
 
 module.exports = router;
