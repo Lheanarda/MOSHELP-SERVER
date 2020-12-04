@@ -13,24 +13,22 @@ exports.createDRF = async(req,res,next)=>{
         input.kode = addDokumenResult.data.kode;
         input.sequence = addDokumenResult.data.sequence;
 
-        const addDRFResult = await Datasource().DRFDatasource.addDRF(input);
-
-        if(addDRFResult.success){
-            //create DRF
-            pdf.create(DRFTemplate(input),{
-                format:'A4',
-                orientation:'portrait',
-                border:{
-                    top:'2.54cm',
-                    left:'2.54cm',
-                    right:'2.54cm',
-                    bottom:'2.54cm'
-                }
-            }).toFile(`private-document-storage/${input.kode}.pdf`,err=>{
-                if(err){
-                    return Promise.reject(new Error('Failed To Create Document'))
-                }
-
+        //create DRF
+        pdf.create(DRFTemplate(input),{
+            format:'A4',
+            orientation:'portrait',
+            border:{
+                top:'2.54cm',
+                left:'2.54cm',
+                right:'2.54cm',
+                bottom:'2.54cm'
+            }
+        }).toFile(`private-document-storage/${input.kode}.pdf`, async (err)=>{
+            if(err){
+                return Promise.reject(new Error('Failed To Create Document'))
+            }
+            const addDRFResult = await Datasource().DRFDatasource.addDRF(input);
+            if(addDRFResult.success){
                 const filePath = path.join(__dirname,`../private-document-storage/${input.kode}.pdf`);
                 if(submitOnly){
                     res.status(200).json({
@@ -52,14 +50,17 @@ exports.createDRF = async(req,res,next)=>{
                         }
                     })
                 }
-            })
-        }else{
-            console.log(addDRFResult);
-            res.status(500).json({
-                success:false,
-                message:addDRFResult.message
-            })
-        }
+            }else{
+                console.log(addDRFResult);
+                res.status(500).json({
+                    success:false,
+                    message:addDRFResult.message
+                })
+            }
+
+            
+        })
+        
     }else{
         res.status(500).json({
             success:false,
