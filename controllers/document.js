@@ -76,7 +76,7 @@ exports.getSearchApprovedDocument = async(req,res,next)=>{
 
 exports.getDownloadPDF = async(req,res,next)=>{
     const fileName = `${req.params.kode_dokumen}.pdf`;
-    const filePath = path.join(__dirname,`../private-document-storage/${fileName}`);
+    const filePath = path.join(__dirname,`../public/documents/${fileName}`);
     res.sendFile(filePath,{
         headers: {
             'x-timestamp': Date.now(),

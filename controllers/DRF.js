@@ -23,13 +23,13 @@ exports.createDRF = async(req,res,next)=>{
                 right:'2.54cm',
                 bottom:'2.54cm'
             }
-        }).toFile(`private-document-storage/${input.kode}.pdf`, async (err)=>{
+        }).toFile(`public/documents/${input.kode}.pdf`, async (err)=>{
             if(err){
                 return Promise.reject(new Error('Failed To Create Document'))
             }
             const addDRFResult = await Datasource().DRFDatasource.addDRF(input);
             if(addDRFResult.success){
-                const filePath = path.join(__dirname,`../private-document-storage/${input.kode}.pdf`);
+                const filePath = path.join(__dirname,`../public/documents/${input.kode}.pdf`);
                 if(submitOnly){
                     res.status(200).json({
                         success:true,

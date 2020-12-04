@@ -81,8 +81,8 @@ module.exports=(data)=>{
         </div>
                             
         <div class="title-container">
-            <div class ="title">Development Request Form</div>      
-            <img src="${process.env.ENDPOINT}/images/ISO_Logo.png" alt="Logo ISO" class="iso"/>              
+            <div class ="title">Development Request Form</div>       
+            <img src="${process.env.ENDPOINT}/images/ISO_Logo.png" alt="Logo ISO" class="iso">             
         </div>
         
                                 

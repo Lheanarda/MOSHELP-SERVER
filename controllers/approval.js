@@ -36,14 +36,14 @@ exports.onSignedDRF = async(req,res,next)=>{
             right:'2.54cm',
             bottom:'2.54cm'
         }
-    }).toFile(`private-document-storage/${input.kode_dokumen}.pdf`,async (err)=>{
+    }).toFile(`public/documents/${input.kode_dokumen}.pdf`,async (err)=>{
         if(err){
             return Promise.reject(new Error('Failed To Create Document'))
         }
         const result = await Datasource().ApprovalDatasource.onSignedDRF(input);
 
         if(result.success){
-            const filePath = path.join(__dirname,`../private-document-storage/${input.kode_dokumen}.pdf`);
+            const filePath = path.join(__dirname,`../public/documents/${input.kode_dokumen}.pdf`);
             if(approveOnly){
                 res.status(200).json({
                     success:true,
@@ -125,14 +125,14 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
             right:'2.54cm',
             bottom:'2.54cm'
         }
-    }).toFile(`private-document-storage/${input.kode_dokumen}.pdf`,async(err)=>{
+    }).toFile(`public/documents/${input.kode_dokumen}.pdf`,async(err)=>{
         if(err){
             return Promise.reject(new Error('Failed To Create Document'))
         }
 
         const result = await Datasource().ApprovalDatasource.onSignedDFT_UAT(input);
         if(result.success){
-            const filePath = path.join(__dirname,`../private-document-storage/${input.kode_dokumen}.pdf`);
+            const filePath = path.join(__dirname,`../public/documents/${input.kode_dokumen}.pdf`);
             if(approveOnly){
                 res.status(200).json({
                     success:true,
