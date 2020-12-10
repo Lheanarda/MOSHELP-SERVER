@@ -11,6 +11,14 @@ class ApprovalDatasource{
         a.kode_dokumen  = d.kode_dokumen and 
         a.employee_id = ${input.employee_id} and 
         a.approved = 'N' and 
+        a.level_approval = (select min (level_approval) from approval where approved ='N' and kode_dokumen = a.kode_dokumen)
+        union
+        select d.kode_dokumen, d.nama_project, d.create_date, d.update_date, a.id, a.level_approval
+        from dokumen d, approval a
+        where 
+        a.kode_dokumen  = d.kode_dokumen and 
+        a.employee_id = (select m2.employee_id from users u2 , magang m2 where m2.pic_employee_id = u2.employee_id and u2.employee_id =${input.employee_id}) and 
+        a.approved = 'N' and 
         a.level_approval = (select min (level_approval) from approval where approved ='N' and kode_dokumen = a.kode_dokumen);`;
 
         try{

@@ -22,6 +22,7 @@
 
 html {
   font-size: 62.5%;
+  /* zoom: 0.55; */
 }
 
 body {
@@ -30,6 +31,12 @@ body {
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   font-size: 1.4rem;
+}
+
+
+.logo{
+  width: 90px;
+  margin-left: 45%;
 }
 
 .title {

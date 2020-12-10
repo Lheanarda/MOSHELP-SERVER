@@ -22,6 +22,7 @@
 
 html {
   font-size: 62.5%;
+  /* zoom: 0.55; */
 }
 
 body {
@@ -102,6 +103,11 @@ body {
 
 .header__divide {
   width: 50%;
+}
+
+.dok-no{
+  font-size: 12px;
+  margin-top: -25px;
 }
 
 .table-group {

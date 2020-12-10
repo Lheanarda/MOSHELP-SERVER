@@ -2,13 +2,17 @@ const Datasource = require('../datasources/Datasource');
 const DRFTemplate = require('../documents-templates/DRF');
 const pdf = require('html-pdf');
 const path = require('path');
+const cors = require('cors');
 
 exports.createDRF = async(req,res,next)=>{
     const input = req.body.data;
     const submitOnly = req.body.submitOnly;
     input.tipe_dokumen = 'DRF';
 
+    
+
     const addDokumenResult = await Datasource().NomorDokumenDatasource.addDokumen(input);
+    
     if(addDokumenResult.success){
         input.kode = addDokumenResult.data.kode;
         input.sequence = addDokumenResult.data.sequence;

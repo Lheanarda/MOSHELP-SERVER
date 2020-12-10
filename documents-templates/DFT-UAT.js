@@ -15,6 +15,10 @@ module.exports=(data,mode,skenarios,kendalas)=>{
         <title>Document</title>
     </head>
     <body>
+        ${data.kode?
+            `<img src="${process.env.ENDPOINT}/images/logo-${data.kode.split('-')[1]==='EMS'?'emos':'enseval'}.png" alt="Logo Enseval" class="logo" style="${data.kode.split('-')[1]==='EMS'?'width:120px;margin-left:42%':''}" />` : 
+            `<img src="${process.env.ENDPOINT}/images/logo-${data.kode_dokumen.split('-')[1]==='EMS'?'emos':'enseval'}.png" alt="Logo Enseval" class="logo" style="${data.kode_dokumen.split('-')[1]==='EMS'?'width:120px;margin-left:42%':''}" />`}
+
         <div class="title">${mode==='DFT'?'Developer Flow Test (DFT)':'User Acceptance Test (UAT)'}</div>
         <div class="info mt-1">
             <div class="info__divide">
@@ -42,8 +46,20 @@ module.exports=(data,mode,skenarios,kendalas)=>{
                 <div class="info__val">${data.approved_by?data.approved_by:'-'}</div>
             </div>
             <div class="info__item">
+                <div class="info__name">Document No.</div>
+                <div class="info__val">${data.mode==='DFT'?'FRM-ITC-DEV-005':'FRM-ITC-DEV-001'}</div>
+            </div>
+            <div class="info__item">
                 <div class="info__name">Document Type</div>
                 <div class="info__val">${data.document_type?data.document_type:'-'}</div>
+            </div>
+            <div class="info__item">
+                <div class="info__name">Tipe</div>
+                <div class="info__val">${data.tipe?data.tipe:'-'}</div>
+            </div>
+            <div class="info__item">
+                <div class="info__name">Platform</div>
+                <div class="info__val">${data.platform?data.platform:'-'}</div>
             </div>
         </div>
 
@@ -67,7 +83,13 @@ module.exports=(data,mode,skenarios,kendalas)=>{
                 <div class="kendala__ket">Keterangan</div>
                 <div class="kendala__referensi">Referensi</div>
             </div>
-            ${kendalas}
+            ${kendalas?kendalas:`<div class="kendala__row">
+            <div class="kendala__no">1</div>
+            <div class="kendala__kendala">-</div>
+            <div class="kendala__check">-</div>
+            <div class="kendala__ket">-</div>
+            <div class="kendala__referensi">-</div>
+        </div>`}
         </div>
 
         <div class="approval mt-1">
@@ -158,7 +180,7 @@ module.exports=(data,mode,skenarios,kendalas)=>{
                 </div>
                 <div class="approval__item">
                     <div class="approval__item-name">J.Title :</div>
-                    <div class="approval__item-val">${data.approve_job?data.approve_job:'-'}</div>
+                    <div class="approval__item-val">${data.approved_job?data.approved_job:'-'}</div>
                 </div>
             </div>
         </div>

@@ -22,7 +22,14 @@ class UserDatasource{
     }
 
     async getUserAndJob(){
-        const sql = "SELECT u.employee_id, u.nama, j.nama_jabatan FROM users u, jabatan j WHERE j.id =u.id_jabatan";
+        const sql = `SELECT u.employee_id, u.nama, j.nama_jabatan 
+        FROM users u, jabatan j
+        WHERE j.id =u.id_jabatan
+        union 
+        select m.employee_id ,m.nama ,j2.nama_jabatan 
+        from users u2 , magang m ,jabatan j2 
+        where m.pic_employee_id = u2.employee_id and j2.id = m.id_jabatan 
+         `;
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
             return {

@@ -45,7 +45,9 @@ class DFTDatasource{
             null,
             null,
             null,
-            null
+            null,
+            '${input.tipe}',
+            '${input.platform}'
         )`;
 
         //skenario sql

@@ -40,13 +40,14 @@ exports.createDFT = async(req,res,next)=>{
             <div class="kendala__row">
                 <div class="kendala__no">${idx+1}</div>
                 <div class="kendala__kendala">${kendala.kendala ? kendala.kendala : '-'}</div>
-                <div class="kendala__check">${kendala.checklist?'<i class="fa fa-check" aria-hidden="true"></i>':'-'}</div>
+                <div class="kendala__check">${kendala.checklist?'<i class="fa fa-check" aria-hidden="true"></i>':'X'}</div>
                 <div class="kendala__ket">${kendala.keterangan ? kendala.keterangan : '-'}</div>
                 <div class="kendala__referensi">${kendala.referensi ? kendala.referensi : '-'}</div>
             </div>
             `
         });
         //create DFT
+        console.log(input);
         pdf.create(DFTTemplate(input,'DFT',skenarios,kendalas),{
             format:'A4',
             orientation:'portrait',

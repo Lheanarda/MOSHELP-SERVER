@@ -17,13 +17,16 @@ module.exports=(data)=>{
     <body>
         <div class="header">
             <div class="header--left">
-                <img src="${process.env.ENDPOINT}/images/logo-enseval.png" alt="Logo Enseval" class="header__logo">
+                <img src="${process.env.ENDPOINT}/images/logo-${data.project_name==='EMOS'?'emos':'enseval'}.png" alt="Logo Enseval" class="header__logo"
+                style="${data.project_name==='EMOS'?' margin-top:10px' :''}">
                 <div class="header__info">
-                    <p>PT. Enseval Putera Megatrading Tbk.
-                    <p class="header__strong">Digital Business Division</p>
+                    <p>PT. ${data.project_name==='EMOS'?'EMOS Global Digital':'Enseval Putera Megatrading Tbk.'}
+                    <p class="header__strong"
+                    >${data.project_name==='EMOS'?'Developer Division':'Digital Business Division'}</p>
                     <p>e-Commerce Development</p>
                 </div>
             </div>
+            
             <div class="header--right">
                 <div class="header--top">
                     <div class="header__divide ">
@@ -79,6 +82,7 @@ module.exports=(data)=>{
                 </div>
             </div>
         </div>
+        <p class="dok-no"><b>Document No</b> : FRM-ITC-DEV-004</p>
                             
         <div class="title-container">
             <div class ="title">Development Request Form</div>       
@@ -263,6 +267,7 @@ module.exports=(data)=>{
                 </div>
             </div>
         </div>
+        <p style="margin-top:3px">Document saved and controlled in MOSHelp System</p>
     </body>
     </html>`
     }
