@@ -55,7 +55,7 @@ class DocumentDatasource{
     }
 
     async getApprovedDRF(input){
-        const sql = `select d.kode_dokumen 
+        const sql = `select d.kode_dokumen, d.nama_project
         from dokumen d, nomor_dokumen nd , project p , akses a 
         where 
         d.nomor_dokumen = nd.sequence and 
@@ -151,9 +151,15 @@ class DocumentDatasource{
         SELECT a.kode_dokumen, d.nama_project , d.create_date , d.update_date 
         from approval a , dokumen d
         where a.kode_dokumen = d.kode_dokumen and 
-        a.employee_id =${input.employee_id} and 
+        a.employee_id =${input.employee_id}  and 
         a.approved = 'Y'
-        ORDER BY d.update_date DESC`;
+        UNION
+        SELECT a.kode_dokumen, d2.nama_project , d2.create_date , d2.update_date 
+        from approval a , dokumen d2
+        where a.kode_dokumen = d2.kode_dokumen and 
+        a.employee_id IN (select m2.employee_id from users u2 , magang m2 where m2.pic_employee_id = u2.employee_id and u2.employee_id =${input.employee_id})  and 
+        a.approved = 'Y'
+        ORDER BY update_date DESC`;
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
             return {

@@ -21,8 +21,8 @@ class ALLDatasource{
     }
 
     async getALLDRF(){
-        const sql = `select kode_dokumen from dokumen d , nomor_dokumen nd 
-        where nd.sequence = d.nomor_dokumen and nd.tipe_dokumen ='DRF'`;
+        const sql = `select kode_dokumen,nama_project from dokumen d , nomor_dokumen nd 
+        where nd.sequence = d.nomor_dokumen and nd.tipe_dokumen ='DRF' and d.approved='Y'`;
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
             return {
