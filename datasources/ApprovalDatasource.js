@@ -9,7 +9,7 @@ class ApprovalDatasource{
         from dokumen d, approval a
         where 
         a.kode_dokumen  = d.kode_dokumen and 
-        a.employee_id = ${input.employee_id} and 
+        a.employee_id = ? and 
         a.approved = 'N' and 
         a.level_approval = (select min (level_approval) from approval where approved ='N' and kode_dokumen = a.kode_dokumen)
         union
@@ -17,12 +17,12 @@ class ApprovalDatasource{
         from dokumen d, approval a
         where 
         a.kode_dokumen  = d.kode_dokumen and 
-        a.employee_id IN (select m2.employee_id from users u2 , magang m2 where m2.pic_employee_id = u2.employee_id and u2.employee_id =${input.employee_id}) and 
+        a.employee_id IN (select m2.employee_id from users u2 , magang m2 where m2.pic_employee_id = u2.employee_id and u2.employee_id =?) and 
         a.approved = 'N' and 
-        a.level_approval = (select min (level_approval) from approval where approved ='N' and kode_dokumen = a.kode_dokumen);`;
+        a.level_approval = (select min (level_approval) from approval where approved ='N' and kode_dokumen = a.kode_dokumen)`;
 
         try{
-            const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.employee_id,input.employee_id]},{raw:true});
             return {
                 success:true,
                 data:result[0]
@@ -45,7 +45,7 @@ class ApprovalDatasource{
         approved='Y',
         update_date =current_timestamp
         WHERE 
-        id = ${input.id}
+        id = ?
         `;
 
         //read level
@@ -70,32 +70,34 @@ class ApprovalDatasource{
         const sqlDRF = `
         UPDATE drf
         SET ${approvalDate} = current_timestamp
-        WHERE kode_dokumen = '${input.kode_dokumen}';
+        WHERE kode_dokumen = ?;
         `;
 
         const sqlUpdateDokumenDate = `
         UPDATE dokumen
         SET update_date = current_timestamp
-        WHERE kode_dokumen = '${input.kode_dokumen}'
+        WHERE kode_dokumen = ?
         `
 
         const sqlDocument = `
         UPDATE dokumen
         SET approved = 'Y'
-        WHERE kode_dokumen = '${input.kode_dokumen}';
+        WHERE kode_dokumen = ?;
         `
 
         try{
-            await this.moshelpPGDB.sequelize.query(sqlApproval,null,{raw:true});
-            await this.moshelpPGDB.sequelize.query(sqlDRF,null,{raw:true});
-            await this.moshelpPGDB.sequelize.query(sqlUpdateDokumenDate,null,{raw:true});
+            console.log(input.id,"test");
+            await this.moshelpPGDB.sequelize.query(sqlApproval,{replacements:[input.id]},{raw:true});
+            await this.moshelpPGDB.sequelize.query(sqlDRF,{replacements:[input.kode_dokumen]},{raw:true});
+            await this.moshelpPGDB.sequelize.query(sqlUpdateDokumenDate,{replacements:[input.kode_dokumen]},{raw:true});
             if(input.level_approval===5){
-                await this.moshelpPGDB.sequelize.query(sqlDocument,null,{raw:true});
+                await this.moshelpPGDB.sequelize.query(sqlDocument,{replacements:[input.kode_dokumen]},{raw:true});
             }
             return {
                 success:true
             };
         }catch(e){
+            console.log(e);
             return{
                 success:false,
                 message:e
@@ -112,7 +114,7 @@ class ApprovalDatasource{
         approved='Y',
         update_date =current_timestamp
         WHERE 
-        id = ${input.id}
+        id = ?
         `;
 
         //read level
@@ -140,26 +142,26 @@ class ApprovalDatasource{
         const sqlDFT_UAT = `
         UPDATE dft_uat 
         SET ${approvalDate}=current_timestamp
-        WHERE kode_dokumen = '${input.kode_dokumen}'`;
+        WHERE kode_dokumen = ?`;
 
         const sqlUpdateDokumenDate = `
         UPDATE dokumen
         SET update_date = current_timestamp
-        WHERE kode_dokumen = '${input.kode_dokumen}'
+        WHERE kode_dokumen = ?
         `
 
         const sqlDocument = `
         UPDATE dokumen
         SET approved = 'Y'
-        WHERE kode_dokumen = '${input.kode_dokumen}';
+        WHERE kode_dokumen = ?;
         `;
 
         try{
-            await this.moshelpPGDB.sequelize.query(sqlApproval,null,{raw:true});
-            await this.moshelpPGDB.sequelize.query(sqlDFT_UAT,null,{raw:true});
-            await this.moshelpPGDB.sequelize.query(sqlUpdateDokumenDate,null,{raw:true});
+            await this.moshelpPGDB.sequelize.query(sqlApproval,{replacements:[input.id]},{raw:true});
+            await this.moshelpPGDB.sequelize.query(sqlDFT_UAT,{replacements:[input.kode_dokumen]},{raw:true});
+            await this.moshelpPGDB.sequelize.query(sqlUpdateDokumenDate,{replacements:[input.kode_dokumen]},{raw:true});
             if(input.level_approval===6){
-                await this.moshelpPGDB.sequelize.query(sqlDocument,null,{raw:true});
+                await this.moshelpPGDB.sequelize.query(sqlDocument,{replacements:[input.kode_dokumen]},{raw:true});
             }
             return {
                 success:true

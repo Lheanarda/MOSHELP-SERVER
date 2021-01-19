@@ -21,6 +21,7 @@ const approval = require('./routes/approvalRoute');
 const auth = require('./routes/authRoute');
 const ALL = require('./routes/ALLRoute');
 const magang =require('./routes/magang');
+const draft = require('./routes/draftRoute');
 
 dotenv.config({path:'./config/config.env'});
 
@@ -49,5 +50,6 @@ app.use('/api/v1/approval',approval);
 app.use('/api/v1/auth',auth);
 app.use('/api/v1/ALL',ALL);
 app.use('/api/v1/magang',magang);
+app.use('/api/v1/draft',draft);
 
 app.listen(process.env.PORT,console.log(`Server running on ${process.env.ENDPOINT}`));

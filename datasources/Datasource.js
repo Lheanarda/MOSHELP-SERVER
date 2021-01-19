@@ -14,6 +14,7 @@ const DFTDatasource = require('./DFTDatasource');
 const UATDatasource = require('./UATDatasource');
 const ALLDatasource = require('./ALLDatasource');
 const MagangDatasource = require('./MagangDatasource');
+const DraftDatasource = require('./DraftDatasource');
 
 //initiate database
 const moshelpPGDB = moshelpPG();
@@ -31,7 +32,8 @@ const Datasource = ()=>({
     DFTDatasource : new DFTDatasource({moshelpPGDB}),
     UATDatasource : new UATDatasource({moshelpPGDB}),
     ALLDatasource : new ALLDatasource({moshelpPGDB}),
-    MagangDatasource : new MagangDatasource({moshelpPGDB})
+    MagangDatasource : new MagangDatasource({moshelpPGDB}),
+    DraftDatasource : new DraftDatasource({moshelpPGDB})
 });
 
 module.exports = Datasource;

@@ -17,7 +17,7 @@ class DRFDatasource{
        }
 
        if(input.advanced_date){
-            advancedDate = `${input.advanced_date}`;
+            advancedDate = `'${input.advanced_date}'`;
        }else{
             advancedDate = null;
        }
@@ -104,9 +104,9 @@ class DRFDatasource{
     }
 
     async getDetailPDF(input){
-        const sql = `SELECT*FROM drf WHERE kode_dokumen = '${input.kode_dokumen}'`;
+        const sql = `SELECT*FROM drf WHERE kode_dokumen = ?`;
         try{
-            const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.kode_dokumen]},{raw:true});
             return {
                 success:true,
                 data:result[0][0]

@@ -1,14 +1,14 @@
 :root {
   --color-primary: rgb(0, 156, 69);
   --color-primary-light: rgb(101, 189, 140);
-  --color-grey:#495057;
-  --color-grey-light-1:#f7f7f7;
+  --color-grey: #495057;
+  --color-grey-light-1: #f7f7f7;
   --color-grey-light-2: #eee;
-  --color-grey-dark-1:#777;
-  --color-grey-dark-2:#999;
-  --color-grey-dark-3:#333;
-  --color-invalid:rgb(255, 64, 129);
-  --color-bg:#e9eaef;
+  --color-grey-dark-1: #777;
+  --color-grey-dark-2: #999;
+  --color-grey-dark-3: #333;
+  --color-invalid: rgb(255, 64, 129);
+  --color-bg: #e9eaef;
 }
 
 *,
@@ -17,24 +17,24 @@
   margin: 0;
   padding: 0;
   -webkit-box-sizing: inherit;
-          box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html {
   font-size: 62.5%;
-  zoom: 0.55;
+  /* zoom: 0.55; */
 }
 
 body {
   margin: 0;
   font-family: Roboto, "Helvetica Neue", sans-serif;
   -webkit-box-sizing: border-box;
-          box-sizing: border-box;
+  box-sizing: border-box;
   font-size: 1.4rem;
+  word-break: break-word;
 }
 
-
-.logo{
+.logo {
   width: 90px;
   margin-left: 45%;
 }
@@ -56,8 +56,8 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
   border: 1px solid black;
 }
 
@@ -137,11 +137,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .skenario__skenario {
@@ -151,11 +151,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
 }
 
@@ -166,11 +166,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
   text-align: center;
 }
@@ -182,11 +182,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
   text-align: center;
 }
@@ -197,12 +197,12 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   border-right: 1px solid black;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
 }
 
@@ -212,11 +212,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
 }
 
@@ -244,11 +244,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
 }
 
 .kendala__kendala {
@@ -258,11 +258,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
 }
 
@@ -273,11 +273,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
   text-align: center;
 }
@@ -288,12 +288,12 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   border-right: 1px solid black;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
 }
 
@@ -303,14 +303,13 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   padding: 5px;
 }
-
 
 .approval {
   display: -webkit-box;
@@ -333,11 +332,11 @@ body {
   display: -ms-flexbox;
   display: flex;
   -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
   -webkit-box-align: center;
-      -ms-flex-align: center;
-          align-items: center;
+  -ms-flex-align: center;
+  align-items: center;
   height: 2rem;
   font-weight: 500;
 }
@@ -367,10 +366,10 @@ body {
   align-items: center;
   justify-content: center;
   padding: 40px 20px;
-  /* padding-left: 30px; */
+  padding-left: 30px;
 }
 
-.approval__ttd span{
+.approval__ttd span {
   font-size: 18px;
   border: 4px solid red;
   padding: 8px 10px;
@@ -383,7 +382,7 @@ body {
   padding-left: 30px;
 }
 
-.approval__ttd-small span{
+.approval__ttd-small span {
   font-size: 18px;
   border: 4px solid red;
   padding: 8px 10px;

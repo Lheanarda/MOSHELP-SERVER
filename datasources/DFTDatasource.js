@@ -117,14 +117,14 @@ class DFTDatasource{
     }
 
     async getDetailPDF(input){
-        const sqlMain = `SELECT*FROM dft_uat WHERE kode_dokumen = '${input.kode_dokumen}'`;
-        const sqlSkenario = `SELECT skenario,keterangan,checklist1,checklist2,referensi FROM skenario WHERE kode_dokumen = '${input.kode_dokumen}'`;
-        const sqlKendala = `SELECT kendala,keterangan, checklist,referensi FROM kendala WHERE kode_dokumen = '${input.kode_dokumen}'`;
+        const sqlMain = `SELECT*FROM dft_uat WHERE kode_dokumen = ?`;
+        const sqlSkenario = `SELECT skenario,keterangan,checklist1,checklist2,referensi FROM skenario WHERE kode_dokumen = ?`;
+        const sqlKendala = `SELECT kendala,keterangan, checklist,referensi FROM kendala WHERE kode_dokumen = ?`;
 
         try{
-            const resultMain = await this.moshelpPGDB.sequelize.query(sqlMain,null,{raw:true});
-            const resultSkenario = await this.moshelpPGDB.sequelize.query(sqlSkenario,null,{raw:true});
-            const resultKendala = await this.moshelpPGDB.sequelize.query(sqlKendala,null,{raw:true});
+            const resultMain = await this.moshelpPGDB.sequelize.query(sqlMain,{replacements:[input.kode_dokumen]},{raw:true});
+            const resultSkenario = await this.moshelpPGDB.sequelize.query(sqlSkenario,{replacements:[input.kode_dokumen]},{raw:true});
+            const resultKendala = await this.moshelpPGDB.sequelize.query(sqlKendala,{replacements:[input.kode_dokumen]},{raw:true});
             return{
                 success:true,
                 data:{

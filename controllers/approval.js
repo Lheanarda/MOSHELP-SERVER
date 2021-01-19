@@ -31,14 +31,18 @@ exports.onSignedDRF = async(req,res,next)=>{
         format:'A4',
         orientation:'portrait',
         border:{
-            top:'2.54cm',
-            left:'2.54cm',
-            right:'2.54cm',
-            bottom:'2.54cm'
+            top:'1.54cm',
+            left:'1.54cm',
+            right:'1.54cm',
+            bottom:'1.54cm'
         }
     }).toFile(`public/documents/${input.kode_dokumen}.pdf`,async (err)=>{
         if(err){
-            return Promise.reject(new Error('Failed To Create Document'))
+            res.status(500).json({
+                success:false,
+                message : 'Fail to create document, Please try again'
+            });
+            return;
         }
         const result = await Datasource().ApprovalDatasource.onSignedDRF(input);
 
@@ -120,14 +124,18 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
         format:'A4',
         orientation:'portrait',
         border:{
-            top:'2.54cm',
-            left:'2.54cm',
-            right:'2.54cm',
-            bottom:'2.54cm'
+            top:'1.54cm',
+            left:'1.54cm',
+            right:'1.54cm',
+            bottom:'1.54cm'
         }
     }).toFile(`public/documents/${input.kode_dokumen}.pdf`,async(err)=>{
         if(err){
-            return Promise.reject(new Error('Failed To Create Document'))
+            res.status(500).json({
+                success:false,
+                message : 'Fail to create document, Please try again'
+            });
+            return;
         }
 
         const result = await Datasource().ApprovalDatasource.onSignedDFT_UAT(input);

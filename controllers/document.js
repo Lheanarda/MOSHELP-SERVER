@@ -144,3 +144,18 @@ exports.getDocumentsSignedBy = async(req,res,next)=>{
         })
     }
 }
+
+exports.abortDocument = async(req,res,next)=>{
+    const input = req.body.data;
+    const result = await Datasource().DocumentDatasource.abortDocument(input);
+    if(result.success){
+        res.status(200).json({
+            success:true
+        })
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}

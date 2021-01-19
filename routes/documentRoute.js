@@ -1,5 +1,5 @@
 const express = require('express');
-const { getDocumentApproved, getDocumentNotApproved, getDownloadPDF, getApprovedDRF, getSearchNotApprovedDocument, getSearchApprovedDocument, getDocumentsCreatedBy, getDocumentsSignedBy } = require('../controllers/document');
+const { getDocumentApproved, getDocumentNotApproved, getDownloadPDF, getApprovedDRF, getSearchNotApprovedDocument, getSearchApprovedDocument, getDocumentsCreatedBy, getDocumentsSignedBy, abortDocument } = require('../controllers/document');
 const router = express.Router();
 
 router
@@ -33,5 +33,9 @@ router
 router
     .route('/signed/:employee_id')
     .get(getDocumentsSignedBy);
+
+router
+    .route('/abort')
+    .post(abortDocument);
     
 module.exports = router;

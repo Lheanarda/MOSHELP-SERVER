@@ -29,6 +29,7 @@ class UserDatasource{
         select m.employee_id ,m.nama ,j2.nama_jabatan 
         from users u2 , magang m ,jabatan j2 
         where m.pic_employee_id = u2.employee_id and j2.id = m.id_jabatan 
+        ORDER BY nama
          `;
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
@@ -45,9 +46,9 @@ class UserDatasource{
     }
 
     async getSingleUsers(input){
-        const sql = `SELECT*FROM users WHERE employee_id = '${input.employee_id}'`;
+        const sql = `SELECT*FROM users WHERE employee_id = ?`;
         try{
-            const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.employee_id]},{raw:true});
             return {
                 success:true,
                 data:result[0][0]
@@ -63,11 +64,13 @@ class UserDatasource{
     async addUsers(input){
         const sql = `
         INSERT INTO users (employee_id,nama_akun,nama,company,id_jabatan) VALUES
-        ('${input.employee_id}','${input.nama_akun}','${input.nama}','${input.company}','${input.id_jabatan}');
+        (?,?,?,?,?);
         `;
 
         try{
-            await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            await this.moshelpPGDB.sequelize.query(sql,{replacements:[
+                input.employee_id,input.nama_akun,input.nama,input.company,input.id_jabatan
+            ]},{raw:true});
             return{
                 success:true
             }
@@ -82,16 +85,18 @@ class UserDatasource{
     async updateUsers(input){
         const sql = `
         UPDATE users 
-        SET employee_id = '${input.employee_id}',
-        nama_akun = '${input.nama_akun}',
-        nama = '${input.nama}',
-        company = '${input.company}',
-        id_jabatan = '${input.id_jabatan}'
-        WHERE employee_id = '${input.employee_id_awal}'
+        SET employee_id = ?,
+        nama_akun = ?,
+        nama = ?,
+        company = ?,
+        id_jabatan = ?
+        WHERE employee_id = ?
         `;
 
         try{
-            await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            await this.moshelpPGDB.sequelize.query(sql,{replacements:[
+                input.employee_id,input.nama_akun,input.nama,input.company,input.id_jabatan,input.employee_id_awal
+            ]},{raw:true});
             return{
                 success:true
             }
@@ -104,9 +109,9 @@ class UserDatasource{
     }
 
     async deleteUsers(input){
-        const sql = `DELETE FROM users WHERE employee_id = '${input.employee_id}'`;
+        const sql = `DELETE FROM users WHERE employee_id = ?`;
         try{
-            await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.employee_id]},{raw:true});
             return{
                 success:true
             }
@@ -119,9 +124,9 @@ class UserDatasource{
     }
     
     async getLoginUserAdmin(input){
-        const sql = `SELECT employee_id FROM admin_users WHERE employee_id = ${input.employee_id}`;
+        const sql = `SELECT employee_id FROM admin_users WHERE employee_id = ?`;
         try{
-            const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.employee_id]},{raw:true});
             return{
                 success:true,
                 data:result[0]
@@ -135,9 +140,9 @@ class UserDatasource{
     }
 
     async getLoginUsers(input){
-        const sql = `SELECT employee_id, create_date,id_jabatan FROM users WHERE employee_id = ${input.employee_id}`
+        const sql = `SELECT employee_id, create_date,id_jabatan FROM users WHERE employee_id = ?`
         try{
-            const result = await this.moshelpPGDB.sequelize.query(sql,null,{raw:true});
+            const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.employee_id]},{raw:true});
             return{
                 success:true,
                 data:result[0]
