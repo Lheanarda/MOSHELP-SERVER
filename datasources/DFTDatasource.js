@@ -55,11 +55,11 @@ class DFTDatasource{
         input.skenarios.forEach((skenario,idx)=>{
             skenarioSqlInput+= `(
                 '${skenario.skenario}',
-                '${skenario.keterangan}',
+                '${skenario.keterangan ? skenario.keterangan : ''}',
                 '${skenario.checklist1 ? 'Y':'N'}',
                 '${skenario.checklist2 ? 'Y':'N'}',
                 '${input.kode}',
-                '${skenario.referensi}')`;
+                '${skenario.referensi ? skenario.referensi :''}')`;
             
             if(idx !== input.skenarios.length-1){
                 skenarioSqlInput+=',';
@@ -72,10 +72,10 @@ class DFTDatasource{
             input.kendalas.forEach((kendala,idx)=>{
                 kendalaSqlInput+=`(
                     '${kendala.kendala}',
-                    '${kendala.keterangan}',
+                    '${kendala.keterangan ? kendala.keterangan : ''}',
                     '${kendala.checklist?'Y':'N'}',
                     '${input.kode}',
-                    '${kendala.referensi}'
+                    '${kendala.referensi ? kendala.referensi : ''}'
                 )`;
     
                 if(idx !== input.kendalas.length-1){

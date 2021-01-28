@@ -173,3 +173,174 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
 
     
 }
+
+exports.onRejectDocument = async(req,res,next)=>{
+    const input = req.body.data;
+    const result = await Datasource().ApprovalDatasource.onRejectDocument(input);
+    if(result.success){
+        res.status(200).json({
+            success:true
+        })
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
+exports.onGetCreatedRejectedDocuments = async(req,res,next)=>{
+    const input = {
+        employee_id : req.params.employee_id
+    }
+    const result = await Datasource().ApprovalDatasource.onGetCreatedRejectedDocuments(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
+exports.onGetDocumentsRejectedBy = async(req,res,next)=>{
+    const input = {
+        employee_id : req.params.employee_id
+    }
+    const result = await Datasource().ApprovalDatasource.onGetDocumentsRejectedBy(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        });
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
+
+exports.onUpdateDocumentDRF = async(req,res,next)=>{
+    const input = req.body.data;
+    input.id_approval = req.params.id_approval;
+
+    pdf.create(DRFTemplate(input),{
+        format:'A4',
+        orientation:'portrait',
+        border:{
+            top:'1.54cm',
+            left:'1.54cm',
+            right:'1.54cm',
+            bottom:'1.54cm'
+        }
+    }).toFile(`public/documents/${input.kode_dokumen}.pdf`,async(err)=>{
+        if(err){
+            res.status(500).json({
+                success:false,
+                message:'Fail to create document, Please try again'
+            });
+            return;
+        }
+        const result = await Datasource().ApprovalDatasource.onUpdateDocumentDRF(input); 
+
+        if(result.success){
+            res.status(200).json({
+                success:true,
+                message:`${input.kode_dokumen} has been updated`
+            })
+        }else{
+            res.status(500).json({
+                success:false,
+                message:result.message
+            })
+        }
+    })
+}
+
+exports.onUpdateDocumentDFT_UAT = async(req,res,next)=>{
+    const input = req.body.data;;
+    input.id_approval = req.params.id_approval;
+    switch(input.kode_dokumen.substr(0,3)){
+        case 'DFT':
+            input.tipe_dokumen = 'DFT';
+            break;
+        case 'UAT':
+            input.tipe_dokumen = 'UAT';
+            break;
+        default:
+            return;
+    }
+    
+    //HTML SKENARIOS & KENDALAS
+    //create skenarios html
+    let skenarios='';
+    input.skenarios.forEach((skenario,idx)=>{
+        skenarios+= `
+            <div class="skenario__row">
+                <div class="skenario__no">${idx+1}</div>
+                <div class="skenario__skenario">${skenario.skenario ? skenario.skenario :'-'}</div>
+                <div class="skenario__user1">
+                    ${skenario.checklist1?'<i class="fa fa-check" aria-hidden="true"></i>':'X'}
+                </div>
+                <div class="skenario__user2">
+                    ${skenario.checklist2?'<i class="fa fa-check" aria-hidden="true"></i>':'X'}
+                </div>
+                <div class="skenario__ket">${skenario.keterangan?skenario.keterangan:'-'}</div>
+
+                <div class="skenario__referensi">${skenario.referensi?skenario.referensi:'-'} </div>
+            </div>
+            `
+    });
+    //create kendala HTML
+        let kendalas = '';
+        input.kendalas.forEach((kendala,idx)=>{
+            kendalas+=`
+            <div class="kendala__row">
+                <div class="kendala__no">${idx+1}</div>
+                <div class="kendala__kendala">${kendala.kendala ? kendala.kendala : '-'}</div>
+                <div class="kendala__check">${kendala.checklist?'<i class="fa fa-check" aria-hidden="true"></i>':'X'}</div>
+                <div class="kendala__ket">${kendala.keterangan ? kendala.keterangan : '-'}</div>
+                <div class="kendala__referensi">${kendala.referensi ? kendala.referensi : '-'}</div>
+            </div>
+            `
+        });
+
+        pdf.create(DFT_UATTemplate(input,input.tipe_dokumen,skenarios,kendalas),{
+            format:'A4',
+            orientation:'portrait',
+            border:{
+                top:'1.54cm',
+                left:'1.54cm',
+                right:'1.54cm',
+                bottom:'1.54cm'
+            }
+        }).toFile(`public/documents/${input.kode_dokumen}.pdf`,async(err)=>{
+            if(err){
+                res.status(500).json({
+                    success:false,
+                    message:'Fail to create document, Please try again'
+                });
+                return;
+            }
+
+            const result = await Datasource().ApprovalDatasource.onUpdateDocumentDFT_UAT(input);
+            if(result.success){
+                res.status(200).json({
+                    success:true,
+                    message:`${input.kode_dokumen} has been updated`
+                })
+            }else{
+                res.status(500).json({
+                    success:false,
+                    message:result.message
+                })
+            }
+        })
+
+
+}
