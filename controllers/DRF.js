@@ -2,13 +2,12 @@ const Datasource = require('../datasources/Datasource');
 const DRFTemplate = require('../documents-templates/DRF');
 const pdf = require('html-pdf');
 const path = require('path');
+const {pushNotif} = require('../helpers/push-notification');
 
 exports.createDRF = async(req,res,next)=>{
     const input = req.body.data;
     const submitOnly = req.body.submitOnly;
     input.tipe_dokumen = 'DRF';
-
-    
 
     const addDokumenResult = await Datasource().NomorDokumenDatasource.addDokumen(input);
     
@@ -57,6 +56,19 @@ exports.createDRF = async(req,res,next)=>{
                         }
                     })
                 }
+
+                //SEND NOTIFICATION
+                const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode,1);
+                if (subs.success && subs.data.length>0){
+                    subs.data.forEach(sub=>{
+                        pushNotif(sub,{
+                            title:`Sign Document`,
+                            body:`Document ${input.kode} need to be signed`,
+                            url:'/#/sign'
+                        })
+                    })
+                }
+
             }else{
                 console.log(addDRFResult);
                 res.status(500).json({

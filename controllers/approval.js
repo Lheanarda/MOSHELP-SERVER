@@ -3,6 +3,7 @@ const DRFTemplate = require('../documents-templates/DRF');
 const DFT_UATTemplate = require('../documents-templates/DFT-UAT');
 const pdf = require('html-pdf');
 const path = require('path');
+const { pushNotif, getSignDRRFName, getSignDFT_UATName } = require('../helpers/push-notification');
 
 exports.getNeedToBeSigned = async(req,res,next)=>{
     const input = {};
@@ -67,6 +68,36 @@ exports.onSignedDRF = async(req,res,next)=>{
                         })
                     }
                 })
+            }
+            
+
+            //notif pembuat
+            const subsCreator = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode_dokumen,1);
+            const signName = getSignDRRFName(dokumen,input.level_approval);
+            if (subsCreator.success && subsCreator.data.length>0){
+                subsCreator.data.forEach(sub=>{
+                    pushNotif(sub,{
+                        title:`DOCUMENT SIGNED`,
+                        body:`Document ${input.kode_dokumen} has been signed by ${signName}`,
+                        url:'/#/my-document'
+                    })
+                })
+            }
+
+            //send notification
+            const level = input.level_approval+1;
+            if(level<=5){
+                //notif next person
+                const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode_dokumen,level);
+                if (subs.success && subs.data.length>0){
+                    subs.data.forEach(sub=>{
+                        pushNotif(sub,{
+                            title:`SIGN DOCUMENT`,
+                            body:`You need to sign document ${input.kode_dokumen}`,
+                            url:'/#/sign'
+                        })
+                    })
+                }
             }
         }else{
             res.status(500).json({
@@ -161,6 +192,35 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
                     }
                 })
             }
+            //send notification
+
+            //notif pembuat
+            const subsCreator = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode_dokumen,1);
+            const signName = getSignDFT_UATName(dokumen,input.level_approval);
+            if (subsCreator.success && subsCreator.data.length>0){
+                subsCreator.data.forEach(sub=>{
+                    pushNotif(sub,{
+                        title:`DOCUMENT SIGNED`,
+                        body:`Document ${input.kode_dokumen} has been signed by ${signName}`,
+                        url:'/#/my-document'
+                    })
+                })
+            }
+            const level = input.level_approval+1;
+            if(level<=6){
+                //notif next person
+                const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode_dokumen,level);
+                if (subs.success && subs.data.length>0){
+                    subs.data.forEach(sub=>{
+                        pushNotif(sub,{
+                            title:`SIGN DOCUMENT`,
+                            body:`You need to sign document ${input.kode_dokumen}`,
+                            url:'/#/sign'
+                        })
+                    })
+                }    
+            }
+            
         }else{
             res.status(500).json({
                 success:false,
@@ -178,6 +238,19 @@ exports.onRejectDocument = async(req,res,next)=>{
     const input = req.body.data;
     const result = await Datasource().ApprovalDatasource.onRejectDocument(input);
     if(result.success){
+        //send notification
+        const currentInfo = await Datasource().SubscriptionDatasource.getDocumentAndCurrentLevelApproval(input.id_approval);
+        const data = currentInfo.data;
+        const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(data.kode_dokumen,1);
+        if (subs.success && subs.data.length>0){
+            subs.data.forEach(sub=>{
+                pushNotif(sub,{
+                    title:`REJECTED DOCUMENT`,
+                    body:`Document ${data.kode_dokumen} has been rejected by ${data.nama}`,
+                    url:'/#/rejected'
+                })
+            })
+        }
         res.status(200).json({
             success:true
         })
@@ -248,7 +321,21 @@ exports.onUpdateDocumentDRF = async(req,res,next)=>{
         }
         const result = await Datasource().ApprovalDatasource.onUpdateDocumentDRF(input); 
 
+        
         if(result.success){
+            //send notification
+            const currentInfo = await Datasource().SubscriptionDatasource.getDocumentAndCurrentLevelApproval(input.id_approval);
+            const data = currentInfo.data;
+            const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(data.kode_dokumen,data.level_approval);
+            if (subs.success && subs.data.length>0){
+                subs.data.forEach(sub=>{
+                    pushNotif(sub,{
+                        title:`REVISED DOCUMENT`,
+                        body:`Document ${data.kode_dokumen} has been revised`,
+                        url:'/#/sign'
+                    })
+                })
+            }
             res.status(200).json({
                 success:true,
                 message:`${input.kode_dokumen} has been updated`
@@ -330,6 +417,19 @@ exports.onUpdateDocumentDFT_UAT = async(req,res,next)=>{
 
             const result = await Datasource().ApprovalDatasource.onUpdateDocumentDFT_UAT(input);
             if(result.success){
+                //send notification
+                const currentInfo = await Datasource().SubscriptionDatasource.getDocumentAndCurrentLevelApproval(input.id_approval);
+                const data = currentInfo.data;
+                const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(data.kode_dokumen,data.level_approval);
+                if (subs.success && subs.data.length>0){
+                    subs.data.forEach(sub=>{
+                        pushNotif(sub,{
+                            title:`REVISED DOCUMENT`,
+                            body:`Document ${data.kode_dokumen} has been revised`,
+                            url:'/#/sign'
+                        })
+                    })
+                }
                 res.status(200).json({
                     success:true,
                     message:`${input.kode_dokumen} has been updated`
@@ -344,3 +444,4 @@ exports.onUpdateDocumentDFT_UAT = async(req,res,next)=>{
 
 
 }
+

@@ -1,30 +1,31 @@
 const express = require('express');
 const { addDraftDRF, addDraftDFT_UAT, getDraftByUser, deleteDraftDRF, deleteDraftDFT_UAT, getDetailDraftDRF, getDetailDraftDFT_UAT, updateDraftDRF, updateDraftDFT_UAT } = require('../controllers/draft');
+const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
 router
     .route('/DRF')
-    .post(addDraftDRF);
+    .post(protect, addDraftDRF);
 
 router
     .route('/DFT_UAT')
-    .post(addDraftDFT_UAT);
+    .post(protect,addDraftDFT_UAT);
 
 router
     .route('/user/:employee_id')
-    .get(getDraftByUser);
+    .get(protect,getDraftByUser);
 
 router
     .route('/DRF/:id_draft')
-    .delete(deleteDraftDRF)
-    .get(getDetailDraftDRF)
-    .put(updateDraftDRF)
+    .delete(protect,deleteDraftDRF)
+    .get(protect,getDetailDraftDRF)
+    .put(protect,updateDraftDRF)
 
 router
     .route('/DFT_UAT/:id_draft')
-    .delete(deleteDraftDFT_UAT)
-    .get(getDetailDraftDFT_UAT)
-    .put(updateDraftDFT_UAT);
+    .delete(protect,deleteDraftDFT_UAT)
+    .get(protect,getDetailDraftDFT_UAT)
+    .put(protect,updateDraftDFT_UAT);
 
 
 

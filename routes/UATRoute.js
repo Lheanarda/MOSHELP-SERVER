@@ -1,13 +1,14 @@
 const express = require('express');
 const { createUAT, getDetailUAT } = require('../controllers/UAT');
+const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
 router
     .route('/')
-    .post(createUAT);
+    .post(protect, createUAT);
 
 router
     .route('/:kode_dokumen')
-    .get(getDetailUAT);
+    .get(protect,getDetailUAT);
 
 module.exports = router;

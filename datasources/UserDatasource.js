@@ -124,7 +124,7 @@ class UserDatasource{
     }
     
     async getLoginUserAdmin(input){
-        const sql = `SELECT employee_id FROM admin_users WHERE employee_id = ?`;
+        const sql = `SELECT * FROM admin_users WHERE employee_id = ?`;
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.employee_id]},{raw:true});
             return{
@@ -140,7 +140,7 @@ class UserDatasource{
     }
 
     async getLoginUsers(input){
-        const sql = `SELECT employee_id, create_date,id_jabatan FROM users WHERE employee_id = ?`
+        const sql = `SELECT employee_id, create_date,id_jabatan,nama FROM users WHERE employee_id = ?`
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.employee_id]},{raw:true});
             return{

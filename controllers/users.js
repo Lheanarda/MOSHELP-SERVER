@@ -1,4 +1,5 @@
 const Datasource = require('../datasources/Datasource');
+const { getSignedJwtToken } = require('../helpers/auth');
 
 exports.getUsers = async(req,res,next)=>{
     const result = await Datasource().UsersDatasource.getAllUsers();
@@ -102,10 +103,11 @@ exports.getLoginUserAdmin = async(req,res,next)=>{
     const input = {};
     input.employee_id = req.params.employee_id;
     const result = await Datasource().UsersDatasource.getLoginUserAdmin(input);
+    const token = getSignedJwtToken(result.data[0]);
     if(result.success){
         res.status(200).json({
             success:true,
-            data: result.data
+            token
         })
     }else{
         res.status(500).json({
@@ -117,12 +119,25 @@ exports.getLoginUserAdmin = async(req,res,next)=>{
 
 exports.getLoginUsers = async(req,res,next)=>{
     const input = {};
+    let token;
     input.employee_id = req.params.employee_id;
     const result = await Datasource().UsersDatasource.getLoginUsers(input);
+    const resultAkses = await Datasource().AksesDatasource.getIfAksesAll(input);
+    const dataAkses = resultAkses.data;
+    const data = result.data[0];
+
+    if(data){
+        if(dataAkses.length>0){
+            data.ALL = true
+        }else{
+            data.ALL = false;
+        }
+        token = getSignedJwtToken(data);
+    }
     if(result.success){
         res.status(200).json({
             success:true,
-            data:result.data
+            token
         })
     }else{
         res.status(500).json({

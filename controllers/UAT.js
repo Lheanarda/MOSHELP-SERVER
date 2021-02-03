@@ -2,6 +2,7 @@ const Datasource = require('../datasources/Datasource');
 const pdf = require('html-pdf');
 const path = require('path');
 const UATTemplate = require('../documents-templates/DFT-UAT');
+const { pushNotif } = require('../helpers/push-notification');
 
 exports.createUAT = async(req,res,next)=>{
     const input = req.body.data;
@@ -85,6 +86,18 @@ exports.createUAT = async(req,res,next)=>{
                                 message : err
                             })
                         }
+                    })
+                }
+
+                //SEND NOTIFICATION
+                const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode,1);
+                if (subs.success && subs.data.length>0){
+                    subs.data.forEach(sub=>{
+                        pushNotif(sub,{
+                            title:`Sign Document`,
+                            body:`Document ${input.kode} need to be signed`,
+                            url:'/#/sign'
+                        })
                     })
                 }
             }else{

@@ -1,41 +1,42 @@
 const express = require('express');
 const { getDocumentApproved, getDocumentNotApproved, getDownloadPDF, getApprovedDRF, getSearchNotApprovedDocument, getSearchApprovedDocument, getDocumentsCreatedBy, getDocumentsSignedBy, abortDocument } = require('../controllers/document');
+const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
 router
     .route('/approved/:employee_id')
-    .get(getDocumentApproved);
+    .get(protect, getDocumentApproved);
 
 router
     .route('/not-approved/:employee_id')
-    .get(getDocumentNotApproved);
+    .get(protect,getDocumentNotApproved);
 
 router
     .route('/not-approved/:employee_id/:term')
-    .get(getSearchNotApprovedDocument);
+    .get(protect,getSearchNotApprovedDocument);
 
 router
     .route('/approved/:employee_id/:term')
-    .get(getSearchApprovedDocument);
+    .get(protect,getSearchApprovedDocument);
 
 router
     .route('/download/:kode_dokumen')
-    .get(getDownloadPDF);
+    .get(protect,getDownloadPDF);
 
 router
     .route('/DRF/:employee_id')
-    .get(getApprovedDRF);
+    .get(protect,getApprovedDRF);
     
 router
     .route('/created/:employee_id')
-    .get(getDocumentsCreatedBy);
+    .get(protect,getDocumentsCreatedBy);
 
 router
     .route('/signed/:employee_id')
-    .get(getDocumentsSignedBy);
+    .get(protect,getDocumentsSignedBy);
 
 router
     .route('/abort')
-    .post(abortDocument);
+    .post(protect,abortDocument);
     
 module.exports = router;

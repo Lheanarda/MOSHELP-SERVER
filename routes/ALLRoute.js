@@ -1,29 +1,30 @@
 const express = require('express');
 const { getALLProject, getALLDRF, getALLDocumentNotApproved,getALLDocumentApproved, getALLDocumentNotApprovedSearch, getALLDocumentApprovedSearch } = require('../controllers/ALL');
+const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
 router
     .route('/project')
-    .get(getALLProject)
+    .get(protect,getALLProject)
 
 router
     .route('/DRF')
-    .get(getALLDRF);
+    .get(protect,getALLDRF);
 
 router
     .route('/dokumen/not-approved')
-    .get(getALLDocumentNotApproved);
+    .get(protect,getALLDocumentNotApproved);
 
 router
     .route('/dokumen/approved')
-    .get(getALLDocumentApproved);
+    .get(protect,getALLDocumentApproved);
 
 router
     .route('/dokumen/not-approved/:term')
-    .get(getALLDocumentNotApprovedSearch);
+    .get(protect,getALLDocumentNotApprovedSearch);
 
 router
     .route('/dokumen/approved/:term')
-    .get(getALLDocumentApprovedSearch);
+    .get(protect,getALLDocumentApprovedSearch);
 
 module.exports = router;

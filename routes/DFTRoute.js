@@ -1,13 +1,14 @@
 const express = require('express');
 const { createDFT, getDetailDFT } = require('../controllers/DFT');
+const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
 router
     .route('/')
-    .post(createDFT);
+    .post(protect,createDFT);
 
 router
     .route('/:kode_dokumen')
-    .get(getDetailDFT);
+    .get(protect,getDetailDFT);
 
 module.exports = router;

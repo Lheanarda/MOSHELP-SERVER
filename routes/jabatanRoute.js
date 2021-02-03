@@ -1,17 +1,18 @@
 const express = require('express');
 const { getJabatan, addJabatan, updateJabatan, deleteJabatan, getSingleJabatan } = require('../controllers/jabatan');
+const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
 router
     .route('/')
-    .get(getJabatan)
-    .post(addJabatan);
+    .get(protect, getJabatan)
+    .post(protect,addJabatan);
 
 router
     .route('/:id')
-    .get(getSingleJabatan)
-    .put(updateJabatan)
-    .delete(deleteJabatan);
+    .get(protect,getSingleJabatan)
+    .put(protect,updateJabatan)
+    .delete(protect,deleteJabatan);
 
 
 module.exports = router;

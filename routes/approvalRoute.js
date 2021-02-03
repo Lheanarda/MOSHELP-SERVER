@@ -1,37 +1,38 @@
 const express = require('express');
 const { getNeedToBeSigned, onSignedDRF, onSignedDFT_UAT, onRejectDocument, onGetCreatedRejectedDocuments,onGetDocumentsRejectedBy, onUpdateDocumentDRF, onUpdateDocumentDFT_UAT } = require('../controllers/approval');
+const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
 router
     .route('/need-sign/:employee_id')
-    .get(getNeedToBeSigned);
+    .get(protect, getNeedToBeSigned);
 
 router
     .route('/sign-DRF')
-    .post(onSignedDRF);
+    .post(protect,onSignedDRF);
 
 router
     .route('/sign-DFT-UAT')
-    .post(onSignedDFT_UAT);
+    .post(protect,onSignedDFT_UAT);
 
 router
     .route('/reject')
-    .put(onRejectDocument);
+    .put(protect,onRejectDocument);
 
 router
     .route('/reject/create/:employee_id')
-    .get(onGetCreatedRejectedDocuments);
+    .get(protect,onGetCreatedRejectedDocuments);
 
 router
     .route('/reject/by/:employee_id')
-    .get(onGetDocumentsRejectedBy);
+    .get(protect,onGetDocumentsRejectedBy);
 
 router
     .route('/update/DRF/:id_approval')
-    .put(onUpdateDocumentDRF);
+    .put(protect,onUpdateDocumentDRF);
 
 router
     .route('/update/DFT_UAT/:id_approval')
-    .put(onUpdateDocumentDFT_UAT)
+    .put(protect,onUpdateDocumentDFT_UAT)
 
 module.exports = router;

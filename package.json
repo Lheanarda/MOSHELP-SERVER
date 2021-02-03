@@ -17,8 +17,10 @@
     "express": "^4.17.1",
     "express-fileupload": "^1.2.0",
     "html-pdf": "^2.2.0",
+    "jsonwebtoken": "^8.5.1",
     "pg": "^8.5.1",
-    "sequelize": "^6.3.5"
+    "sequelize": "^6.3.5",
+    "web-push": "^3.4.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.6"
