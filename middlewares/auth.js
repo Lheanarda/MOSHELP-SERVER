@@ -17,7 +17,6 @@ exports.protect = async (req,res,next)=>{
 
     try{
         //Verify token
-        console.log(process.env.JWT_SECRET,'TOKEN');
         jwt.verify(token,process.env.JWT_SECRET);
         next();
     }catch(e){

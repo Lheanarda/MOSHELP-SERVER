@@ -16,8 +16,8 @@ exports.pushNotif = (subAuth,content)=>{
         notification:{
             title:content.title,
             body:content.body,
-            badge:`http://localhost:5000/images/1607058288200_logo-enseval.png`,
-            icon:`http://localhost:5000/images/1607058288200_logo-enseval.png`,
+            badge:`${process.env.ENDPOINT}/images/logo-enseval.png`,
+            icon:`${process.env.ENDPOINT}/images/logo-enseval.png`,
             vibrate:[100,50,100],
             requiredInteraction:true,
             renotify:true,

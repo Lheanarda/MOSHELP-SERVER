@@ -104,7 +104,24 @@ class DRFDatasource{
     }
 
     async getDetailPDF(input){
-        const sql = `SELECT*FROM drf WHERE kode_dokumen = ?`;
+        const sql = `select d.*, a1.employee_id as "request_by", 
+        a2.employee_id as "request_approved",
+        a3.employee_id as "developed_by",
+        a4.employee_id as "development_approved",
+        a5.employee_id as "approved"
+        from drf d, approval a1, approval a2, approval a3, approval a4, approval a5
+        where 
+        d.kode_dokumen  = a1.kode_dokumen and 
+        a2.kode_dokumen  = d.kode_dokumen and 
+        a3.kode_dokumen = d.kode_dokumen and 
+        a4.kode_dokumen = d.kode_dokumen and 
+        a5.kode_dokumen = d.kode_dokumen and
+        a1.level_approval = 1 and 
+        a2.level_approval = 2 and 
+        a3.level_approval = 3 and 
+        a4.level_approval = 4 and 
+        a5.level_approval = 5 and
+        d.kode_dokumen = ?`;
         try{
             const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[input.kode_dokumen]},{raw:true});
             return {

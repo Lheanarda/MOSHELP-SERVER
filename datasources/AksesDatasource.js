@@ -125,7 +125,7 @@ class AksesDatasource{
         update_date = current_timestamp
         WHERE
         kode_project = :kode_project_awal AND 
-        employee_id = :input.employee_id_awal
+        employee_id = :employee_id_awal
         `;
         try{
             await this.moshelpPGDB.sequelize.query(sql,{
@@ -140,6 +140,7 @@ class AksesDatasource{
                 success:true
             }
         }catch(e){
+            console.log(e)
             return{
                 success:false,
                 message:e

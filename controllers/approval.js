@@ -241,7 +241,7 @@ exports.onRejectDocument = async(req,res,next)=>{
         //send notification
         const currentInfo = await Datasource().SubscriptionDatasource.getDocumentAndCurrentLevelApproval(input.id_approval);
         const data = currentInfo.data;
-        const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(data.kode_dokumen,1);
+        const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByCreateBy(data.kode_dokumen);
         if (subs.success && subs.data.length>0){
             subs.data.forEach(sub=>{
                 pushNotif(sub,{
@@ -324,14 +324,12 @@ exports.onUpdateDocumentDRF = async(req,res,next)=>{
         
         if(result.success){
             //send notification
-            const currentInfo = await Datasource().SubscriptionDatasource.getDocumentAndCurrentLevelApproval(input.id_approval);
-            const data = currentInfo.data;
-            const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(data.kode_dokumen,data.level_approval);
+            const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode_dokumen,1);
             if (subs.success && subs.data.length>0){
                 subs.data.forEach(sub=>{
                     pushNotif(sub,{
-                        title:`REVISED DOCUMENT`,
-                        body:`Document ${data.kode_dokumen} has been revised`,
+                        title:`SIGN REVISED DOCUMENT`,
+                        body:`You need to sign document ${input.kode_dokumen}`,
                         url:'/#/sign'
                     })
                 })
@@ -350,7 +348,7 @@ exports.onUpdateDocumentDRF = async(req,res,next)=>{
 }
 
 exports.onUpdateDocumentDFT_UAT = async(req,res,next)=>{
-    const input = req.body.data;;
+    const input = req.body.data;
     input.id_approval = req.params.id_approval;
     switch(input.kode_dokumen.substr(0,3)){
         case 'DFT':
@@ -418,14 +416,14 @@ exports.onUpdateDocumentDFT_UAT = async(req,res,next)=>{
             const result = await Datasource().ApprovalDatasource.onUpdateDocumentDFT_UAT(input);
             if(result.success){
                 //send notification
-                const currentInfo = await Datasource().SubscriptionDatasource.getDocumentAndCurrentLevelApproval(input.id_approval);
-                const data = currentInfo.data;
-                const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(data.kode_dokumen,data.level_approval);
+                // const currentInfo = await Datasource().SubscriptionDatasource.getDocumentAndCurrentLevelApproval(input.id_approval);
+                // const data = currentInfo.data;
+                const subs = await Datasource().SubscriptionDatasource.getUserSubscriptionByLevelApproval(input.kode_dokumen,1);
                 if (subs.success && subs.data.length>0){
                     subs.data.forEach(sub=>{
                         pushNotif(sub,{
-                            title:`REVISED DOCUMENT`,
-                            body:`Document ${data.kode_dokumen} has been revised`,
+                            title:`SIGN REVISED DOCUMENT`,
+                            body:`You need to sign document ${input.kode_dokumen}`,
                             url:'/#/sign'
                         })
                     })

@@ -47,6 +47,27 @@ class SubscriptionDatasource{
         }
     }
 
+    async getUserSubscriptionByCreateBy(kode_dokumen){
+        const sql = `select ps.endpoint, ps.auth, ps.p256dh
+        from push_subscription ps , users u , dokumen d 
+        where u.employee_id = d.create_by and ps.employee_id = u.employee_id and 
+        d.kode_dokumen  = ?`
+        try{
+            const result = await this.moshelpPGDB.sequelize.query(sql,{replacements:[kode_dokumen]},{raw:true});
+            return{
+                success:true,
+                data:result[0]
+            }
+        }catch(e){
+            console.log(e,"error");
+            return{
+                success:false,
+                message:e
+            }
+        }
+
+    }
+
     async getUserSubscriptionByLevelApproval(kode,level){
         const sql = `
         SELECT ps.endpoint, ps.auth, ps.p256dh

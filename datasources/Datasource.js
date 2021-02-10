@@ -16,6 +16,7 @@ const ALLDatasource = require('./ALLDatasource');
 const MagangDatasource = require('./MagangDatasource');
 const DraftDatasource = require('./DraftDatasource');
 const SubscriptionDatasource = require('./SubscriptionDatasource');
+const MappingDatasource = require('./MappingDatasource');
 
 //initiate database
 const moshelpPGDB = moshelpPG();
@@ -35,7 +36,8 @@ const Datasource = ()=>({
     ALLDatasource : new ALLDatasource({moshelpPGDB}),
     MagangDatasource : new MagangDatasource({moshelpPGDB}),
     DraftDatasource : new DraftDatasource({moshelpPGDB}),
-    SubscriptionDatasource : new SubscriptionDatasource({moshelpPGDB})
+    SubscriptionDatasource : new SubscriptionDatasource({moshelpPGDB}),
+    MappingDatasource : new MappingDatasource({moshelpPGDB})
 });
 
 module.exports = Datasource;

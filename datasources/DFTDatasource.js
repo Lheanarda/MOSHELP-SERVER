@@ -117,7 +117,21 @@ class DFTDatasource{
     }
 
     async getDetailPDF(input){
-        const sqlMain = `SELECT*FROM dft_uat WHERE kode_dokumen = ?`;
+        const sqlMain = `select d.*, a1.employee_id as "user1_id", a2.employee_id as "user2_id", a3.employee_id as "checked_by_id", a4.employee_id as "request_by_id", a5.employee_id as "approved_by_id", a6.employee_id as "approved_id"
+        FROM dft_uat d, approval a1, approval a2 , approval a3 , approval a4 , approval a5 , approval a6 
+        where d.kode_dokumen  = a1.kode_dokumen and 
+        d.kode_dokumen = a2.kode_dokumen and 
+        d.kode_dokumen = a3.kode_dokumen and 
+        d.kode_dokumen = a4.kode_dokumen and 
+        d.kode_dokumen = a5.kode_dokumen and 
+        d.kode_dokumen = a6.kode_dokumen and 
+        a1.level_approval = 1 and 
+        a2.level_approval = 2 and 
+        a3.level_approval = 3 and 
+        a4.level_approval = 4 and 
+        a5.level_approval = 5 and 
+        a6.level_approval = 6 and
+        d.kode_dokumen = ?`;
         const sqlSkenario = `SELECT skenario,keterangan,checklist1,checklist2,referensi FROM skenario WHERE kode_dokumen = ?`;
         const sqlKendala = `SELECT kendala,keterangan, checklist,referensi FROM kendala WHERE kode_dokumen = ?`;
 

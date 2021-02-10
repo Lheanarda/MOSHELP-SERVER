@@ -23,6 +23,7 @@ const ALL = require('./routes/ALLRoute');
 const magang =require('./routes/magang');
 const draft = require('./routes/draftRoute');
 const subscription = require('./routes/subscriptionRoute');
+const mapping = require('./routes/mappingRoute');
 
 dotenv.config({path:'./config/config.env'});
 
@@ -53,5 +54,6 @@ app.use('/api/v1/ALL',ALL);
 app.use('/api/v1/magang',magang);
 app.use('/api/v1/draft',draft);
 app.use('/api/v1/subscription',subscription);
+app.use('/api/v1/mapping',mapping);
 
 app.listen(process.env.PORT,console.log(`Server running on ${process.env.ENDPOINT}`));
