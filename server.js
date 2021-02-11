@@ -4,6 +4,12 @@ const fileupload = require('express-fileupload');
 const path = require('path');
 const dotenv = require('dotenv');
 const cors = require('cors');
+const { createServer } = require('https');
+const fs = require('fs');
+
+//CERITIFICATE KEY
+const Certificate = 'www_emos_id.crt'
+const CertificateKey = 'www_emos_id.key'
 
 //ROUTE FILE
 const images = require('./routes/imagesRoute');
@@ -56,4 +62,14 @@ app.use('/api/v1/draft',draft);
 app.use('/api/v1/subscription',subscription);
 app.use('/api/v1/mapping',mapping);
 
-app.listen(process.env.PORT,console.log(`Server running on ${process.env.ENDPOINT}`));
+//SSL CONFIGURATION
+let server
+if(process.env.SSL==='true'){
+    server = createServer({
+        key:fs.readFileSync(CertificateKey),
+        cert:fs.readFileSync(Certificate)
+    },app)
+}else{
+    server = http.createServer(app);
+}
+server.listen(process.env.PORT,console.log(`Server running on ${process.env.ENDPOINT}`));
