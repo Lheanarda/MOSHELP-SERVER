@@ -69,8 +69,8 @@ if(process.env.SSL==='true'){
     server = createServer({
         key:fs.readFileSync(CertificateKey),
         cert:fs.readFileSync(Certificate)
-    },app)
+    },app);
 }else{
     server = http.createServer(app);
 }
-server.listen(process.env.PORT,console.log(`Server running on ${process.env.ENDPOINT}`));
+server.listen({port:process.env.PORT},console.log(`Server running on ${process.env.ENDPOINT}`));
