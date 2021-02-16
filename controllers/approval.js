@@ -79,7 +79,7 @@ exports.onSignedDRF = async(req,res,next)=>{
                     pushNotif(sub,{
                         title:`DOCUMENT SIGNED`,
                         body:`Document ${input.kode_dokumen} has been signed by ${signName}`,
-                        url:'/#/my-document'
+                        url:'/moshelp/#/my-document'
                     })
                 })
             }
@@ -94,7 +94,7 @@ exports.onSignedDRF = async(req,res,next)=>{
                         pushNotif(sub,{
                             title:`SIGN DOCUMENT`,
                             body:`You need to sign document ${input.kode_dokumen}`,
-                            url:'/#/sign'
+                            url:'/moshelp/#/sign'
                         })
                     })
                 }
@@ -202,7 +202,7 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
                     pushNotif(sub,{
                         title:`DOCUMENT SIGNED`,
                         body:`Document ${input.kode_dokumen} has been signed by ${signName}`,
-                        url:'/#/my-document'
+                        url:'/moshelp/#/my-document'
                     })
                 })
             }
@@ -215,7 +215,7 @@ exports.onSignedDFT_UAT = async(req,res,next)=>{
                         pushNotif(sub,{
                             title:`SIGN DOCUMENT`,
                             body:`You need to sign document ${input.kode_dokumen}`,
-                            url:'/#/sign'
+                            url:'/moshelp/#/sign'
                         })
                     })
                 }    
@@ -247,7 +247,7 @@ exports.onRejectDocument = async(req,res,next)=>{
                 pushNotif(sub,{
                     title:`REJECTED DOCUMENT`,
                     body:`Document ${data.kode_dokumen} has been rejected by ${data.nama}`,
-                    url:'/#/rejected'
+                    url:'/moshelp/#/rejected'
                 })
             })
         }
@@ -330,7 +330,7 @@ exports.onUpdateDocumentDRF = async(req,res,next)=>{
                     pushNotif(sub,{
                         title:`SIGN REVISED DOCUMENT`,
                         body:`You need to sign document ${input.kode_dokumen}`,
-                        url:'/#/sign'
+                        url:'/moshelp/#/sign'
                     })
                 })
             }
@@ -424,7 +424,7 @@ exports.onUpdateDocumentDFT_UAT = async(req,res,next)=>{
                         pushNotif(sub,{
                             title:`SIGN REVISED DOCUMENT`,
                             body:`You need to sign document ${input.kode_dokumen}`,
-                            url:'/#/sign'
+                            url:'/moshelp/#/sign'
                         })
                     })
                 }

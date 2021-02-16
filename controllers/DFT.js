@@ -97,7 +97,7 @@ exports.createDFT = async(req,res,next)=>{
                         pushNotif(sub,{
                             title:`Sign Document`,
                             body:`Document ${input.kode} need to be signed`,
-                            url:'/#/sign'
+                            url:'/moshelp/#/sign'
                         })
                     })
                 }
