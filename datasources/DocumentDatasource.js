@@ -206,6 +206,45 @@ class DocumentDatasource{
             }
         }
     }
+
+    async getDocumentChartData(input){
+        const sqlDokumenPerBulan = `select date_part('month', d.create_date) as "Month_Number", to_char(nd.create_date,'Mon') as "Month", count(d.*)
+        from nomor_dokumen nd , dokumen d
+        where nd.kode_project = ? and d.nomor_dokumen = nd.sequence   
+        group by "Month_Number","Month"
+        order by "Month_Number";`
+
+        const sqlDokumenPerTipeDokumen = `select nd.tipe_dokumen , count(d.*)
+        from nomor_dokumen nd , dokumen d 
+        where nd.kode_project = ? and d.nomor_dokumen = nd.sequence
+        group by nd.tipe_dokumen ;`
+
+        const sqlDokumenSetujuiTidakSetujui = `select d.approved , count(d.*)
+        from nomor_dokumen nd , dokumen d 
+        where nd.kode_project = ? and d.nomor_dokumen = nd.sequence
+        group by d.approved ;`
+
+        try{
+            const resultDokumenPerBulan =await this.moshelpPGDB.sequelize.query(sqlDokumenPerBulan,{replacements:[input.kode_project]},{raw:true});
+            const resultDokumenPerTipeDokumen = await this.moshelpPGDB.sequelize.query(sqlDokumenPerTipeDokumen,{replacements:[input.kode_project]},{raw:true});
+            const resultDokumenDisetujuiTidakDisetujui = await this.moshelpPGDB.sequelize.query(sqlDokumenSetujuiTidakSetujui,{replacements:[input.kode_project]},{raw:true});
+
+            return{
+                success:true,
+                data:{
+                    dokumen_per_bulan : resultDokumenPerBulan[0],
+                    dokumen_per_tipe_dokumen:resultDokumenPerTipeDokumen[0],
+                    dokumen_setujui_tidak_setujui : resultDokumenDisetujuiTidakDisetujui[0]
+                }
+            }
+        }catch(err){
+            console.log(err);
+            return{
+                success:false,
+                message:err
+            }
+        }
+    }
 }
 
 module.exports = DocumentDatasource;

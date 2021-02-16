@@ -1,5 +1,5 @@
 const express = require('express');
-const { getDocumentApproved, getDocumentNotApproved, getDownloadPDF, getApprovedDRF, getSearchNotApprovedDocument, getSearchApprovedDocument, getDocumentsCreatedBy, getDocumentsSignedBy, abortDocument } = require('../controllers/document');
+const { getDocumentApproved, getDocumentNotApproved, getDownloadPDF, getApprovedDRF, getSearchNotApprovedDocument, getSearchApprovedDocument, getDocumentsCreatedBy, getDocumentsSignedBy, abortDocument, getDocumentChartData } = require('../controllers/document');
 const { protect } = require('../middlewares/auth');
 const router = express.Router();
 
@@ -38,5 +38,9 @@ router
 router
     .route('/abort')
     .post(protect,abortDocument);
+
+router
+    .route('/chart/:kode_project')
+    .get(getDocumentChartData)
     
 module.exports = router;

@@ -8,9 +8,7 @@ const { createServer } = require('https');
 const http = require('http')
 const fs = require('fs');
 
-//CERITIFICATE KEY
-const Certificate = 'www_emos_id.crt'
-const CertificateKey = 'www_emos_id.key'
+
 
 //ROUTE FILE
 const images = require('./routes/imagesRoute');
@@ -62,6 +60,10 @@ app.use('/api/v1/magang',magang);
 app.use('/api/v1/draft',draft);
 app.use('/api/v1/subscription',subscription);
 app.use('/api/v1/mapping',mapping);
+
+//CERITIFICATE KEY
+const Certificate = 'www_emos_id.crt'
+const CertificateKey = 'www_emos_id.key'
 
 //SSL CONFIGURATION
 let server

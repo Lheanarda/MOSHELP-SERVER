@@ -159,3 +159,21 @@ exports.abortDocument = async(req,res,next)=>{
         })
     }
 }
+
+exports.getDocumentChartData =async(req,res,next)=>{
+    const input = {
+        kode_project:req.params.kode_project
+    }
+    const result = await Datasource().DocumentDatasource.getDocumentChartData(input);
+    if(result.success){
+        res.status(200).json({
+            success:true,
+            data:result.data
+        })
+    }else{
+        res.status(500).json({
+            success:false,
+            message:result.message
+        })
+    }
+}
